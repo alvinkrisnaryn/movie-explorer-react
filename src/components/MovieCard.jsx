@@ -4,15 +4,18 @@ import useFavorites from "../context/useFavorites";
 function MovieCard({ movie }) {
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
+  const displayTitle = movie.title || movie.name;
+  const mediaType = movie.title ? "movie" : "tv";
+
   return (
     <div className="p-3">
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={`/${mediaType}/${movie.id}`}>
         <img
           src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-          alt={movie.title}
+          alt={displayTitle}
           className="w-full h-90 rounded-lg"
         />
-        <h3 className="text-lg font-bold text-center pt-3">{movie.title}</h3>
+        <h3 className="text-lg font-bold text-center pt-3">{displayTitle}</h3>
         <p className="text-lg font-bold text-center">({movie.release_year})</p>
       </Link>
       <button

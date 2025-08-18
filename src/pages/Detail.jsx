@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieDetail } from "../api/movieApi";
+import { MoviesApi } from "../api";
 
 function MovieDetail() {
   const { id } = useParams();
@@ -9,7 +9,7 @@ function MovieDetail() {
   useEffect(() => {
     async function fetchMovie() {
       try {
-        const data = await getMovieDetail(id);
+        const data = await MoviesApi.getMovieDetail(id);
         setMovie(data);
       } catch (error) {
         console.error("Error fetching movie detail:", error);

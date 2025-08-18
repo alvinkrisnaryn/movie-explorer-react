@@ -1,21 +1,39 @@
 import { useEffect, useState } from "react";
-import { getPopularMovies, searchMovies } from "../api/movieApi";
+import { MoviesApi, SearchApi, TvApi } from "../api";
 import MovieCard from "../components/MovieCard";
 
 function Home({ searchTerm }) {
-  const [movies, setMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [popularTv, setPopularTv] = useState([]);
+  const [topRatedTv, setTopRatedTv] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const API_KEY = "57e03c17e1d6a4b5acd7ca652f00e8f1";
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = searchTerm
-          ? await searchMovies(searchTerm)
-          : await getPopularMovies();
-        setMovies(data);
+        if (searchTerm) {
+          const result = await SearchApi.searchMovies(searchTerm);
+          setSearchResults(result);
+        } else {
+          const [
+            popularMoviesRes,
+            topRatedMoviesRes,
+            popularTvRes,
+            topRatedTvRes,
+          ] = await Promise.all([
+            MoviesApi.getPopularMovies(),
+            MoviesApi.getTopRatedMovies(),
+            TvApi.getPopularTvShows(),
+            TvApi.getTopRatedTvShows(),
+          ]);
+          setPopularMovies(popularMoviesRes);
+          setTopRatedMovies(topRatedMoviesRes);
+          setPopularTv(popularTvRes);
+          setTopRatedTv(topRatedTvRes);
+        }
       } catch (error) {
         setError(error.message);
       } finally {
@@ -28,22 +46,66 @@ function Home({ searchTerm }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  if (searchTerm) {
+    return (
+      <>
+        <h1 className="text-4xl font-bold p-4 text-center">
+          Search results for "{searchTerm}"
+        </h1>
+        {searchResults.length === 0 ? (
+          <p className="text-center text-gray-500">No movies found.</p>
+        ) : (
+          <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
+            {searchResults.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       <h1 className="text-4xl font-bold p-4 text-center">
-        {searchTerm
-          ? `Search results for "${searchTerm}"`
-          : "Welcome to Movie Explorer"}
+        Welcome to Movie Explorer
       </h1>
-      {movies.length === 0 ? (
-        <p className="text-center text-gray-500">No movies found.</p>
-      ) : (
+
+      <section>
+        <h2 className="text-2xl font-bold p-4">Top Popular Movies</h2>
         <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
-          {movies.map((movie) => (
+          {popularMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
-      )}
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold p-4">Top Rated Movies</h2>
+        <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
+          {topRatedMovies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold p-4">Popular Tv Shows</h2>
+        <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
+          {popularTv.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold p-4">Top Rated TV Shows </h2>
+        <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
+          {topRatedTv.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+      </section>
     </>
   );
 }
