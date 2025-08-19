@@ -32,3 +32,13 @@ export async function getTopRatedTvShows() {
       : "unknown",
   }));
 }
+
+export async function getTvDetail(id) {
+  const { data } = await api.get(`/tv/${id}`);
+  return {
+    ...data,
+    release_year: data.first_air_date
+      ? new Date(data.first_air_date).getFullYear()
+      : "unknown",
+  };
+}

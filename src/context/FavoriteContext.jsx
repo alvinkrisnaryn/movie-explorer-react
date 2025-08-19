@@ -14,17 +14,23 @@ export function FavoriteProvider({ children }) {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
-  const addFavorite = (movie) => {
-    if (!favorites.some((m) => m.id === movie.id)) {
-      setFavorites((prev) => [...prev, movie]);
+  const addFavorite = (item) => {
+    const mediaType = item.title ? "movie" : "tv";
+    const favoriteItem = { ...item, mediaType };
+
+    if (!favorites.some((m) => m.id === item.id && m.mediaType === mediaType)) {
+      setFavorites((prev) => [...prev, favoriteItem]);
     }
   };
 
-  const removeFavorite = (id) => {
-    setFavorites((prev) => prev.filter((m) => m.id !== id));
+  const removeFavorite = (id, mediaType) => {
+    setFavorites((prev) =>
+      prev.filter((m) => !(m.id === id && m.mediaType === mediaType))
+    );
   };
 
-  const isFavorite = (id) => favorites.some((m) => m.id === id);
+  const isFavorite = (id, mediaType) =>
+    favorites.some((m) => m.id === id && m.mediaType === mediaType);
 
   const value = { favorites, addFavorite, removeFavorite, isFavorite };
   return (

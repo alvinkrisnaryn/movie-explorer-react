@@ -1,21 +1,43 @@
 import MovieCard from "../components/MovieCard";
 import useFavorites from "../context/useFavorites";
 
-export default function Favorites(){
+export default function Favorites() {
   const { favorites } = useFavorites();
-  
+
+  const favoriteMovies = favorites.filter((f) => f.mediaType === "movie");
+  const favoriteTvShows = favorites.filter((f) => f.mediaType === "tv");
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-4">My Favorite Movies</h1>
-      {favorites.length === 0 ? (
-        <p>You have no favorite movies yet.</p>
-      ) : (
-        <div className="grid gap-4 grid-cols-2 sm:grid-cols-4 md:grid-cols-5">
-          {favorites.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
-      )}
+    <div className="p-6">
+      <h1 className="text-4xl font-bold p-4 text-center">
+        My Favorite Film and TV Show
+      </h1>
+
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold p-4">Movies Favorite</h2>
+        {favoriteMovies.lenght === 0 ? (
+          <p className="text-gray-500">No favorite movies yet.</p>
+        ) : (
+          <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
+            {favoriteMovies.map((movie) => (
+              <MovieCard key={`movie-${movie.id}`} movie={movie} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold p-4">Tv Shows Favorite</h2>
+        {favoriteTvShows.lenght === 0 ? (
+          <p className="text-gray-500">No favorite Tv Shows yet.</p>
+        ) : (
+          <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
+            {favoriteTvShows.map((tv) => (
+              <MovieCard key={`tv-${tv.id}`} movie={tv} />
+            ))}
+          </div>
+        )}
+      </section>
     </div>
-  )
+  );
 }

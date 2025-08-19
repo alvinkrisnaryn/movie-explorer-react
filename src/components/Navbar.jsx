@@ -10,7 +10,7 @@ function Navbar({ onSearch }) {
   };
 
   return (
-    <nav className="bg-blue-500 text-white p-4">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-blue-500 text-white p-4 shadow">
       <div className="container mx-auto flex flex-col sm:flex-row gap-4 sm:items-center justify-between">
         <div className="flex gap-4">
           <NavLink
