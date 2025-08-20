@@ -1,4 +1,4 @@
-import MovieCard from "../components/MovieCard";
+import MediaCard from "../components/MediaCard";
 import useFavorites from "../context/useFavorites";
 
 export default function Favorites() {
@@ -20,7 +20,7 @@ export default function Favorites() {
         ) : (
           <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
             {favoriteMovies.map((movie) => (
-              <MovieCard key={`movie-${movie.id}`} movie={movie} />
+              <MediaCard key={`movie-${movie.id}`} media={movie} />
             ))}
           </div>
         )}
@@ -33,7 +33,7 @@ export default function Favorites() {
         ) : (
           <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
             {favoriteTvShows.map((tv) => (
-              <MovieCard key={`tv-${tv.id}`} movie={tv} />
+              <MediaCard key={`tv-${tv.id}`} media={tv} />
             ))}
           </div>
         )}

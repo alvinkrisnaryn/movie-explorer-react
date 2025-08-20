@@ -31,7 +31,10 @@ Movie Explorer adalah aplikasi berbasis React untuk menampilkan informasi film m
 public/             # Assets (images, dll.)
 src/
   api/              # File API handler (fetch data TMDB)
-      movieAPI.jsx
+      index.js
+      movies.js
+      search.js
+      tv.js
   components/       # Reusable components (Navbar, MovieCard, dll.)
       MovieCard.jsx
       MovieList.jsx
@@ -41,12 +44,13 @@ src/
       useFavorites.jsx
   pages/            # Halaman utama (Home, Detail, Favorites, About, NotFound)
       About.jsx
-      Detail.jsx
       Favorites.jsx
       Home.jsx
+      MovieDetail.jsx
       NotFound.jsx
+      TvDetail.jsx
    router/          # Routing
-      router.jsx
+      AppRouter.jsx
   App.jsx           # Root component
   index.css         # Global styling
   main.jsx          # Entry point aplikasi

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MoviesApi, SearchApi, TvApi } from "../api";
-import MovieCard from "../components/MovieCard";
+import MediaList from "../components/MediaList";
+import MediaCard from "../components/MediaCard";
 
 function Home({ searchTerm }) {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -56,8 +57,8 @@ function Home({ searchTerm }) {
           <p className="text-center text-gray-500">No movies found.</p>
         ) : (
           <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
-            {searchResults.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+            {searchResults.map((media) => (
+              <MediaCard key={media.id} media={media} />
             ))}
           </div>
         )}
@@ -71,41 +72,10 @@ function Home({ searchTerm }) {
         Welcome to Movie Explorer
       </h1>
 
-      <section>
-        <h2 className="text-2xl font-bold p-4">Top Popular Movies</h2>
-        <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
-          {popularMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold p-4">Top Rated Movies</h2>
-        <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
-          {topRatedMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold p-4">Popular Tv Shows</h2>
-        <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
-          {popularTv.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold p-4">Top Rated TV Shows </h2>
-        <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
-          {topRatedTv.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
-      </section>
+      <MediaList title="Popular Movies" items={popularMovies} />
+      <MediaList title="Top Rated Movies" items={topRatedMovies} />
+      <MediaList title="Popular TV Shows" items={popularTv} />
+      <MediaList title="Top Rated TV Shows" items={topRatedTv} />
     </>
   );
 }
