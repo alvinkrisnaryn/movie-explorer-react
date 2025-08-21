@@ -1,4 +1,4 @@
-import MediaCard from "../components/MediaCard";
+import MediaCard from "../components/media/MediaCard";
 import useFavorites from "../context/useFavorites";
 
 export default function Favorites() {

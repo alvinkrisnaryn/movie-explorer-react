@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useFavorites from "../context/useFavorites";
+import useFavorites from "../../context/useFavorites";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 function MediaCard({ media }) {

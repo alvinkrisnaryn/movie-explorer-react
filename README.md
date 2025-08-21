@@ -25,35 +25,35 @@ Movie Explorer adalah aplikasi berbasis React untuk menampilkan informasi film m
 - [TMDB API](https://www.themoviedb.org/documentation/api)
 - Context API untuk global state management
 
-
 ## 📂 Struktur Folder
 
-public/             # Assets (images, dll.)
+public/ # Assets (images, dll.)
 src/
-  api/              # File API handler (fetch data TMDB)
-      index.js
-      movies.js
-      search.js
-      tv.js
-  components/       # Reusable components (Navbar, MovieCard, dll.)
-      MovieCard.jsx
-      MovieList.jsx
-      Navbar.jsx
-  context/          # Context API (FavoriteContext, useFavorites)
-      FavoriteContext.jsx
-      useFavorites.jsx
-  pages/            # Halaman utama (Home, Detail, Favorites, About, NotFound)
-      About.jsx
-      Favorites.jsx
-      Home.jsx
-      MovieDetail.jsx
-      NotFound.jsx
-      TvDetail.jsx
-   router/          # Routing
-      AppRouter.jsx
-  App.jsx           # Root component
-  index.css         # Global styling
-  main.jsx          # Entry point aplikasi
+api/ # File API handler (fetch data TMDB)
+index.js
+movies.js
+search.js
+tv.js
+components/
+common/ # Reusable components (Button, Card, dll.)
+container/ # Reusable section (HeroSection, CarouselSection, CategorySection, dll.)
+layout/ # Layout components (Navbar, Footer, dll.)
+media/ # Media components (MediaCard, MediaList, dll.)
+context/ # Context API (FavoriteContext, useFavorites)
+FavoriteContext.jsx
+useFavorites.jsx
+pages/ # Halaman utama (Home, Detail, Favorites, About, NotFound)
+About.jsx
+Favorites.jsx
+Home.jsx
+MovieDetail.jsx
+NotFound.jsx
+TvDetail.jsx
+router/ # Routing
+AppRouter.jsx
+App.jsx # Root component
+index.css # Global styling
+main.jsx # Entry point aplikasi
 .gitignore
 eslint.config.js
 index.html
@@ -61,6 +61,7 @@ package.json
 README.md
 vite.config.js
 yarn.lock
+
 ```
 
 ---
@@ -70,3 +71,4 @@ yarn.lock
 - Dibuat untuk latihan React + Vita + Tailwind
 - API disediakan oleh [The Movie Database (TMDB)](https://www.themoviedb.org/)
 
+```

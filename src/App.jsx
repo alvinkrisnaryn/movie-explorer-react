@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar from "./components/Navbar"
+import Navbar from "../src/components/layout/Navbar";
 import AppRouter from "./router/AppRouter";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <>
       <div>
         <Navbar onSearch={setSearchTerm} />
-        <main className="pt-20">
+        <main>
           <AppRouter searchTerm={searchTerm} />
         </main>
       </div>

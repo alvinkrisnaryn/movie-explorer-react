@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { MoviesApi, SearchApi, TvApi } from "../api";
-import MediaList from "../components/MediaList";
-import MediaCard from "../components/MediaCard";
+import MediaList from "../components/media/MediaList";
+import MediaCard from "../components/media/MediaCard";
+import HeroSection from "../components/container/HeroSection";
 
 function Home({ searchTerm }) {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -68,9 +69,7 @@ function Home({ searchTerm }) {
 
   return (
     <>
-      <h1 className="text-4xl font-bold p-4 text-center">
-        Welcome to Movie Explorer
-      </h1>
+      <HeroSection media={popularMovies[6]}/>
 
       <MediaList title="Popular Movies" items={popularMovies} />
       <MediaList title="Top Rated Movies" items={topRatedMovies} />
