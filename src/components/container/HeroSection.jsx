@@ -1,5 +1,3 @@
-import { FaStar } from "react-icons/fa";
-
 function HeroSection({ media }) {
   if (!media) return null;
 
@@ -7,7 +5,7 @@ function HeroSection({ media }) {
   const description = media.overview;
 
   return (
-    <section className="relative w-full h-screen text-white">
+    <section className="font-nunito relative w-full h-screen text-white">
       <img
         src={`https://image.tmdb.org/t/p/original${media.backdrop_path}`}
         alt={title}
@@ -21,7 +19,7 @@ function HeroSection({ media }) {
           {media.release_date?.slice(0, 4) || media.first_air_date?.slice(0, 4)}
         </p>
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
-        <p className="mb-6 text-sm text-gray-200 line-clamp-3">{description}</p>
+        <p className="font-nunito font-bold mb-6 text-sm text-gray-200 line-clamp-3">{description}</p>
 
         <div className="flex gap-4">
           <button className="bg-red-600 px-6 py-2 rounded-md font-semibold hover:bg-red-700 transition">

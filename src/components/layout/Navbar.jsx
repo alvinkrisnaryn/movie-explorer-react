@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
+import logo from "../../../public/logo-netflix.png";
 
 function Navbar({ onSearch }) {
   const [query, setQuery] = useState("");
@@ -10,42 +11,75 @@ function Navbar({ onSearch }) {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/70 to-transparent text-white">
+    <nav className=" font-n fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/70 to-transparent text-white">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-6">
-          <h1 className="text-red-600 font-bold text-2xl">NaaFlix</h1>
-          <div className="hidden md:flex gap-4">
+          <img src={logo} alt="Netflix Logo" className="h-6 md:h-8" />
+          <div className="hidden md:flex gap-20 mx-35 text-base">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive
-                  ? "font-bold text-white"
-                  : "text-gray-300 hover:text-white"
+                `group relative pb-1 ${
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-300 hover:text-white font-bold"
+                }`
               }
             >
               Home
+              <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-14 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
             </NavLink>
-            <NavLink>Movies</NavLink>
-            <NavLink>Tv Shows</NavLink>
             <NavLink
-              to="/about"
+              to="/tv"
               className={({ isActive }) =>
-                isActive
-                  ? "font-bold text-white"
-                  : "text-gray-300 hover:text-white"
+                `group relative pb-1 ${
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-300 hover:text-white font-bold"
+                }`
               }
             >
-              About
+              Tv Shows
+              <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-22 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+            </NavLink>
+            <NavLink
+              to="/movie"
+              className={({ isActive }) =>
+                `group relative pb-1 ${
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-300 hover:text-white font-bold"
+                }`
+              }
+            >
+              Movies
+              <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-16 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
             </NavLink>
             <NavLink
               to="/favorites"
               className={({ isActive }) =>
-                isActive
-                  ? "font-bold text-white"
-                  : "text-gray-300 hover:text-white"
+                `group relative pb-1 ${
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-300 hover:text-white font-bold"
+                }`
               }
             >
               My List
+              <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-18 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `group relative pb-1 ${
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-300 hover:text-white font-bold"
+                }`
+              }
+            >
+              About
+              <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-16 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
             </NavLink>
           </div>
         </div>

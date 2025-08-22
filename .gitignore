@@ -20,6 +20,7 @@ vite.config.ts.timestamp-*
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+.yarn/
 
 # Build artifacts tambahan
 *.cache

@@ -1,15 +1,19 @@
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import MovieDetail from "../pages/MovieDetail";
 import TvDetail from "../pages/TvDetail";
 import Favorites from "../pages/Favorites";
 import NotFound from "../pages/NotFound";
+import Movies from "../pages/Movies";
+import TvShows from "../pages/TvShows";
 
-function AppRouter({searchTerm}) {
+function AppRouter({ searchTerm }) {
   return (
     <Routes>
       <Route path="/" element={<Home searchTerm={searchTerm} />} />
+      <Route path="/movie" element={<Movies />} />
+      <Route path="/tv" element={<TvShows />} />
       <Route path="/about" element={<About />} />
       <Route path="/favorites" element={<Favorites />} />
       <Route path="/movie/:id" element={<MovieDetail />} />

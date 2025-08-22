@@ -69,7 +69,7 @@ function Home({ searchTerm }) {
 
   return (
     <>
-      <HeroSection media={popularMovies[6]}/>
+      <HeroSection media={popularMovies[5]}/>
 
       <MediaList title="Popular Movies" items={popularMovies} />
       <MediaList title="Top Rated Movies" items={topRatedMovies} />

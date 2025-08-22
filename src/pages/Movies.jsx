@@ -1,7 +1,7 @@
-function About() {
+function Movies() {
   return (
     <>
-      <h1 className="text-4xl font-bold p-4 text-center">About Us</h1>
+      <h1 className="text-4xl font-bold p-4 text-center">Movie</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur est
         eligendi nesciunt sint, pariatur alias ut excepturi incidunt nisi rem
@@ -11,4 +11,4 @@ function About() {
     </>
   );
 }
-export default About;
+export default Movies;
