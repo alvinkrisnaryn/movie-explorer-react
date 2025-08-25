@@ -1,8 +1,14 @@
+import { useState } from "react";
+import { FaStar } from "react-icons/fa";
+
 function HeroSection({ media, rating }) {
+  const [showFull, setShowFull] = useState(false);
+
   if (!media) return null;
 
   const title = media.title || media.name;
   const description = media.overview;
+  const ratingValue = parseFloat(media.vote_average).toFixed(1);
 
   return (
     <section className="font-nunito relative w-full h-screen text-white">
@@ -15,18 +21,44 @@ function HeroSection({ media, rating }) {
 
       <div className="relative z-10 max-w-2xl px-6 top-1/3">
         {rating && (
-          <span className="inline-block mb-5 bg-amber-500 px-3 py-1 rounded-md text-xs font-semibold uppercase tracking-wide">
+          <span className="inline-block mb-5 bg-amber-500 px-4 py-1 rounded-[5px] text-xs font-bold uppercase tracking-wide">
             {rating}
           </span>
         )}
-        <p className="text-sm text-gray-300 mb-2">
-          ⭐ {media.vote_average} •{" "}
-          {media.release_date?.slice(0, 4) || media.first_air_date?.slice(0, 4)}
+        <p className="text-lg font-bold mb-4 flex gap-4 items-center">
+          <FaStar size={20} className="text-red-600" />
+          <span>{ratingValue} </span>
+          <span className="text-white-300">•</span>
+          <span>
+            {media.release_date?.slice(0, 4) ||
+              media.first_air_date?.slice(0, 4)}
+          </span>
         </p>
-        <h1 className="text-4xl font-bold mb-4">{title}</h1>
-        <p className="font-nunito font-bold mb-6 text-sm text-gray-200 line-clamp-3">
-          {description}
-        </p>
+        <h1 className="text-5xl font-bold mb-4 drop-shadow-xl tracking-wide">
+          {title}
+        </h1>
+        <div className="relative mb-6">
+          <p
+            className={`text-base md:text-base text-gray-200 font-bold ${
+              showFull ? "" : "line-clamp-2"
+            }`}
+          >
+            {description}
+          </p>
+
+          {!showFull && description?.length > 150 && (
+            <div className="absolute bottom-0 left-0 right-0 h-6 pointer-events-none"></div>
+          )}
+
+          {description?.length > 150 && (
+            <button
+              onClick={() => setShowFull(!showFull)}
+              className="mt-2 text-sm text-gray-300 hover:text-white relative z-10"
+            >
+              {showFull ? "Show less" : "Show more"}
+            </button>
+          )}
+        </div>
 
         <div className="flex gap-4">
           <button className="bg-red-600 px-6 py-2 rounded-md font-semibold hover:bg-red-700 transition">
