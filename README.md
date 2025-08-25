@@ -28,32 +28,38 @@ Movie Explorer adalah aplikasi berbasis React untuk menampilkan informasi film m
 ## 📂 Struktur Folder
 
 public/ # Assets (images, dll.)
-src/
-api/ # File API handler (fetch data TMDB)
-index.js
-movies.js
-search.js
-tv.js
-components/
-common/ # Reusable components (Button, Card, dll.)
-container/ # Reusable section (HeroSection, CarouselSection, CategorySection, dll.)
-layout/ # Layout components (Navbar, Footer, dll.)
-media/ # Media components (MediaCard, MediaList, dll.)
-context/ # Context API (FavoriteContext, useFavorites)
-FavoriteContext.jsx
-useFavorites.jsx
-pages/ # Halaman utama (Home, Detail, Favorites, About, NotFound)
-About.jsx
-Favorites.jsx
-Home.jsx
-MovieDetail.jsx
-NotFound.jsx
-TvDetail.jsx
-router/ # Routing
-AppRouter.jsx
-App.jsx # Root component
-index.css # Global styling
-main.jsx # Entry point aplikasi
+├── src/
+│ ├── api/ # File API handler (fetch data TMDB)
+│ │ ├── index.js
+│ │ ├── movies.js
+│ │ ├── search.js
+│ │ ├── tv.js
+│ ├── components/
+│ │ ├── common/ # Reusable components (Button, Card, dll.)
+│ │ ├── container/ # Reusable section (HeroSection, CarouselSection, CategorySection, dll.)
+│ │ │ ├── HeroSection.jsx
+│ │ ├── layout/ # Layout components (Navbar, Footer, dll.)
+│ │ │ ├── Navbar.jsx
+│ │ ├── media/ # Media components (MediaCard, MediaList, dll.)
+│ │ │ ├── MediaCard.jsx
+│ │ │ ├── MediaList.jsx
+│ │ ├── context/ # Context API (FavoriteContext, useFavorites)
+│ │ │ ├── FavoriteContext.jsx
+│ │ │ ├── useFavorites.jsx
+│ ├── pages/ # Halaman utama (Home, Detail, Favorites, About, NotFound)
+│ │ ├── About.jsx
+│ │ ├── Favorites.jsx
+│ │ ├── Home.jsx
+│ │ ├── MovieDetail.jsx
+│ │ ├── Movies.jsx
+│ │ ├── NotFound.jsx
+│ │ ├── TvDetail.jsx
+│ │ ├── TvShows.jsx
+│ ├── router/ # Routing
+│ │ ├── AppRouter.jsx
+│ ├──App.jsx # Root component
+│ ├──index.css # Global styling
+│ ├──main.jsx # Entry point aplikasi
 .gitignore
 eslint.config.js
 index.html
@@ -68,7 +74,7 @@ yarn.lock
 
 ## 📝 Catatan
 
-- Dibuat untuk latihan React + Vita + Tailwind
+- Dibuat untuk latihan React + Vite + Tailwind
 - API disediakan oleh [The Movie Database (TMDB)](https://www.themoviedb.org/)
 
 ```

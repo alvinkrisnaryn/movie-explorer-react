@@ -42,3 +42,31 @@ export async function getTvDetail(id) {
       : "unknown",
   };
 }
+
+export async function getTvContentRatings(id) {
+  const res = await axios.get(
+    `${BASE_URL}/tv/${id}/release_dates?api_key=${API_KEY}`
+  );
+  return res.data;
+}
+
+export async function getTvCertification(id) {
+  const ratingData = await getTvContentRatings(id);
+
+  let rating = null;
+  const usRating = ratingData.results.find((item) => item.iso_3166_1 === "US");
+  rating = usRating?.rating || null;
+
+  if (!rating) {
+    const idRating = ratingData.results.find(
+      (item) => item.iso_3166_1 === "ID"
+    );
+    rating = idRating?.rating || null;
+  }
+
+  if (!rating && ratingData.results.length > 0) {
+    rating = ratingData.results[0].rating;
+  }
+
+  return rating;
+}

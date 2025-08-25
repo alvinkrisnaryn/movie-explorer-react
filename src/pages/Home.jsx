@@ -10,13 +10,14 @@ function Home({ searchTerm }) {
   const [popularTv, setPopularTv] = useState([]);
   const [topRatedTv, setTopRatedTv] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [heroRating, setHeroRating] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        if (searchTerm) {
+        if (searchTerm && searchTerm.trim() !== "") {
           const result = await SearchApi.searchMovies(searchTerm);
           setSearchResults(result);
         } else {
@@ -35,6 +36,14 @@ function Home({ searchTerm }) {
           setTopRatedMovies(topRatedMoviesRes);
           setPopularTv(popularTvRes);
           setTopRatedTv(topRatedTvRes);
+
+          const heroMovie = topRatedMoviesRes[12];
+          if (heroMovie) {
+            const certification = await MoviesApi.getMovieCertification(
+              heroMovie.id
+            );
+            setHeroRating(certification);
+          }
         }
       } catch (error) {
         setError(error.message);
@@ -69,7 +78,7 @@ function Home({ searchTerm }) {
 
   return (
     <>
-      <HeroSection media={popularMovies[5]}/>
+      <HeroSection media={topRatedMovies[12]} rating={heroRating} />
 
       <MediaList title="Popular Movies" items={popularMovies} />
       <MediaList title="Top Rated Movies" items={topRatedMovies} />

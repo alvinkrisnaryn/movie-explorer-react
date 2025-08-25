@@ -1,4 +1,4 @@
-function HeroSection({ media }) {
+function HeroSection({ media, rating }) {
   if (!media) return null;
 
   const title = media.title || media.name;
@@ -14,12 +14,19 @@ function HeroSection({ media }) {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
 
       <div className="relative z-10 max-w-2xl px-6 top-1/3">
+        {rating && (
+          <span className="inline-block mb-5 bg-amber-500 px-3 py-1 rounded-md text-xs font-semibold uppercase tracking-wide">
+            {rating}
+          </span>
+        )}
         <p className="text-sm text-gray-300 mb-2">
           ⭐ {media.vote_average} •{" "}
           {media.release_date?.slice(0, 4) || media.first_air_date?.slice(0, 4)}
         </p>
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
-        <p className="font-nunito font-bold mb-6 text-sm text-gray-200 line-clamp-3">{description}</p>
+        <p className="font-nunito font-bold mb-6 text-sm text-gray-200 line-clamp-3">
+          {description}
+        </p>
 
         <div className="flex gap-4">
           <button className="bg-red-600 px-6 py-2 rounded-md font-semibold hover:bg-red-700 transition">

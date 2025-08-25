@@ -1,21 +1,52 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import { FaSearch, FaUserCircle } from "react-icons/fa";
-import logo from "../../../public/logo-netflix.png";
+import { useState, useRef, useEffect } from "react";
+import { FaSearch, FaUserCircle, FaTimes, FaBell } from "react-icons/fa";
 
 function Navbar({ onSearch }) {
+  const [isSearching, setIsSearching] = useState(false);
   const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
+  const debounceRef = useRef(null);
+
+  useEffect(() => {
+    if (isSearching && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isSearching]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query);
+    if (query.trim() !== "") {
+      onSearch(query);
+      setIsSearching(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    debounceRef.current = setTimeout(() => {
+      if (value.trim() === "") {
+        onSearch("");
+      } else {
+        onSearch(value);
+      }
+    }, 500);
   };
 
   return (
-    <nav className=" font-n fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/70 to-transparent text-white">
+    <nav className=" font-n fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/50 to-transparent text-white">
       <div className="flex items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-6">
-          <img src={logo} alt="Netflix Logo" className="h-6 md:h-8" />
-          <div className="hidden md:flex gap-20 mx-35 text-base">
+        <div className="flex items-center">
+          <img
+            src="/logo-netflix.png"
+            alt="Netflix Logo"
+            className="h-6 md:h-8"
+          />
+          <div className="hidden md:flex gap-15 mx-40 text-base">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -84,23 +115,44 @@ function Navbar({ onSearch }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          <form onSubmit={handleSubmit} className="hidden md:flex">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="bg-gray-800 text-sm px-3 py-1 rounded-l-md focus:outline-none"
+        <div className="flex items-center text-white relative gap-10">
+          {!isSearching ? (
+            <FaSearch
+              size={18}
+              className="cursor-pointer hover:text-red-600 transition-colors"
+              onClick={() => setIsSearching(true)}
             />
-            <button
-              type="submit"
-              className="bg-red-600 px-3 rounded-r-md hover:bg-red-700"
-            >
-              <FaSearch />
-            </button>
-          </form>
-          <FaUserCircle className="text-2xl cursor-pointer hover:text-gray-400" />
+          ) : (
+            <form onSubmit={handleSubmit} className="flex items-center">
+              <input
+                ref={inputRef}
+                type="text"
+                value={query}
+                onChange={handleChange}
+                placeholder="Search..."
+                className="bg-black/80 text-white placeholder-gray-400 rounded-xl focus:outline-none px-3 py-1 w-0 sm:w-48"
+                style={{ width: isSearching ? "12rem" : "0" }}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery("");
+                  onSearch("");
+                  setIsSearching(false);
+                }}
+              >
+                <FaTimes
+                  size={18}
+                  className="ml-2 cursor-pointer hover:text-red-600"
+                />
+              </button>
+            </form>
+          )}
+          <FaBell size={18} className="cursor-pointer hover:text-red-600" />
+          <FaUserCircle
+            size={30}
+            className="cursor-pointer hover:text-gray-400"
+          />
         </div>
       </div>
     </nav>
