@@ -44,7 +44,7 @@ function Navbar({ onSearch }) {
           <img
             src="/logo-netflix.png"
             alt="Netflix Logo"
-            className="h-6 md:h-8"
+            className="h-6 md:h-7"
           />
           <div className="hidden md:flex gap-15 mx-40 text-base">
             <NavLink
@@ -148,7 +148,7 @@ function Navbar({ onSearch }) {
               </button>
             </form>
           )}
-          <FaBell size={18} className="cursor-pointer hover:text-red-600" />
+          <FaBell size={18} className="cursor-pointer hover:text-gray-400" />
           <FaUserCircle
             size={30}
             className="cursor-pointer hover:text-gray-400"

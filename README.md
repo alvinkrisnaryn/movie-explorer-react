@@ -35,10 +35,10 @@ public/ # Assets (images, dll.)
 │ │ ├── search.js
 │ │ ├── tv.js
 │ ├── components/
-│ │ ├── common/ # Reusable components (Button, Card, dll.)
-│ │ ├── container/ # Reusable section (HeroSection, CarouselSection, CategorySection, dll.)
+│ │ ├── common/ # Reusable components (Button, Badge, Spinner, Modal, dll.)
+│ │ ├── container/ # Reusable section (HeroSection, CarouselRow, CategorySection, dll.)
 │ │ │ ├── HeroSection.jsx
-│ │ ├── layout/ # Layout components (Navbar, Footer, dll.)
+│ │ ├── layout/ # Layout components (Navbar, Footer, Sidebar)
 │ │ │ ├── Navbar.jsx
 │ │ ├── media/ # Media components (MediaCard, MediaList, dll.)
 │ │ │ ├── MediaCard.jsx

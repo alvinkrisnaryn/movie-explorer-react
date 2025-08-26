@@ -3,6 +3,8 @@ import { MoviesApi, SearchApi, TvApi } from "../api";
 import MediaList from "../components/media/MediaList";
 import MediaCard from "../components/media/MediaCard";
 import HeroSection from "../components/container/HeroSection";
+import CategoryTabs from "../components/common/CategoryTabs";
+import GenreFilter from "../components/common/GenreFilter";
 
 function Home({ searchTerm }) {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -13,6 +15,8 @@ function Home({ searchTerm }) {
   const [heroRating, setHeroRating] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [setActiveTab] = useState("trending");
+  const [setActiveGenre] = useState("Action");
 
   useEffect(() => {
     async function fetchData() {
@@ -79,6 +83,10 @@ function Home({ searchTerm }) {
   return (
     <>
       <HeroSection media={topRatedMovies[12]} rating={heroRating} />
+
+      <CategoryTabs onChange={(tab) => setActiveTab(tab)} />
+      <GenreFilter onChange={(genre) => setActiveGenre(genre)} />
+
 
       <MediaList title="Popular Movies" items={popularMovies} />
       <MediaList title="Top Rated Movies" items={topRatedMovies} />
