@@ -88,10 +88,10 @@ function Home({ searchTerm }) {
       <GenreFilter onChange={(genre) => setActiveGenre(genre)} />
 
 
-      <MediaList title="Popular Movies" items={popularMovies} />
-      <MediaList title="Top Rated Movies" items={topRatedMovies} />
-      <MediaList title="Popular TV Shows" items={popularTv} />
-      <MediaList title="Top Rated TV Shows" items={topRatedTv} />
+      <MediaList items={popularMovies} />
+      <MediaList items={topRatedMovies} />
+      <MediaList items={popularTv} />
+      <MediaList items={topRatedTv} />
     </>
   );
 }
