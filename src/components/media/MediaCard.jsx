@@ -14,7 +14,7 @@ function MediaCard({ media }) {
   const toggleFav = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (isFav) removeFavorite(media.id);
+    if (isFav) removeFavorite(media.id, mediaType);
     else addFavorite({ ...media, mediaType });
   };
 
@@ -42,16 +42,16 @@ function MediaCard({ media }) {
         </div>
       </Link>
 
-      <h3 className="text-sm font-semibold mt-2 truncate text-white">
+      <h3 className="text-base font-bold mt-2 truncate text-white">
         {displayTitle}
       </h3>
 
-      <div className="flex items-center gap-3 text-xs text-gray-400 mt-1">
-        <span className="flex items-center gap-1">
-          <FaStar className="text-yellow-400" />
+      <div className="flex justify-between gap-3 text-xs text-gray-400 mt-1">
+        <span className="text-sm font-bold">{year}</span>
+        <span className="flex items-center gap-1 text-yellow-400 font-bold text-sm">
+          <FaStar size={16}/>
           {rating}
         </span>
-        <span>{year}</span>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ function CategoryTabs({ onChange }) {
   };
 
   return (
-    <div className="absolute bottom-0 left-0 w-full z-50 backdrop-blur-xs ">
+    <div className="absolute bottom-0 left-0 w-full z-50">
       <div className="flex justify-between px-6 py-5 mx-10">
         {tabs.map((tab) => (
           <button
