@@ -70,3 +70,23 @@ export async function getTvCertification(id) {
 
   return rating;
 }
+
+export async function getTvByFilter({ year, sortBy, rating }) {
+  let params = { page: 1 };
+  if (year) params.first_air_date_year = year;
+  if (rating) params["vote_average.gte"] = rating;
+
+  if (sortBy === "az") params.sort_by = "original_name.asc";
+  else if (sortBy === "za") params.sort_by = "original_name.desc";
+  else if (sortBy === "year") params.sort_by = "first_air_date.desc";
+
+  const { data } = await api.get("/discover/tv", { params });
+
+  if (!data || !data.results) return [];
+  return data.results.map((tv) => ({
+    ...tv,
+    release_year: tv.first_air_date
+      ? new Date(tv.first_air_date_year).getFullYear()
+      : "unkown",
+  }));
+}

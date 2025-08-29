@@ -45,11 +45,11 @@ function MediaList({ title, items }) {
   const showRight = hovering && canScrollRight;
 
   return (
-    <section className="mb-8 bg-black/94 py-4 relative">
+    <section className=" bg-black/98 py-4 relative">
       <h2 className="text-xl font-bold px-6 mb-3 text-white">{title}</h2>
 
       <div
-        className="relative"
+        className="relative py-10"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >

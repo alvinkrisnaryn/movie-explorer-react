@@ -55,7 +55,9 @@ export async function getMovieCertification(id) {
   const releaseData = await getMovieReleaseDates(id);
 
   let certification = null;
-  const usRelease = releaseData.results.find((item) => item.iso_3166_1 === "US");
+  const usRelease = releaseData.results.find(
+    (item) => item.iso_3166_1 === "US"
+  );
   if (usRelease) {
     certification =
       usRelease.release_dates.find((r) => r.certification)?.cerfitication ||
@@ -84,4 +86,25 @@ export async function getMovieCertification(id) {
   }
 
   return certification;
+}
+
+export async function getMoviesByFilter({ year, sortBy, rating }) {
+  let params = { page: 1 };
+
+  if (year) params.primary_release_year = year;
+  if (rating) params["vote_average.gte"] = rating;
+
+  if (sortBy === "az") params.sort_by = "original_title.asc";
+  else if (sortBy === "za") params.sort_by = "original_title.desc";
+  else if (sortBy === "year") params.sort_by = "primary_release_date.desc";
+
+  const { data } = await api.get("/discover/movie", { params });
+
+  if (!data || !data.results) return [];
+  return data.results.map((movie) => ({
+    ...movie,
+    release_year: movie.release_date
+      ? new Date(movie.release_date).getFullYear()
+      : "unknown",
+  }));
 }
