@@ -12,11 +12,13 @@ import MainTabContext from "../context/MainTabContext";
 import SortFilter from "../components/common/SortFilter";
 import RatingFilter from "../components/common/RatingFilter";
 import YearFilter from "../components/common/YearFilter";
+import UpcomingHero from "../components/container/UpcomingHero";
+import UpcomingSection from "../components/container/UpcomingSection";
 
 function Home({ searchTerm }) {
   const [popularMovies, setPopularMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
-  const [popularTv, setPopularTv] = useState([]);
+  // const [popularTv, setPopularTv] = useState([]);
   const [topRatedTv, setTopRatedTv] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [heroMovie, setHeroMovie] = useState(null);
@@ -37,20 +39,14 @@ function Home({ searchTerm }) {
           const result = await SearchApi.searchMovies(searchTerm);
           setSearchResults(result);
         } else {
-          const [
-            popularMoviesRes,
-            topRatedMoviesRes,
-            popularTvRes,
-            topRatedTvRes,
-          ] = await Promise.all([
-            MoviesApi.getPopularMovies(),
-            MoviesApi.getTopRatedMovies(),
-            TvApi.getPopularTvShows(),
-            TvApi.getTopRatedTvShows(),
-          ]);
+          const [popularMoviesRes, topRatedMoviesRes, topRatedTvRes] =
+            await Promise.all([
+              MoviesApi.getPopularMovies(),
+              MoviesApi.getTopRatedMovies(),
+              TvApi.getTopRatedTvShows(),
+            ]);
           setPopularMovies(popularMoviesRes);
           setTopRatedMovies(topRatedMoviesRes);
-          setPopularTv(popularTvRes);
           setTopRatedTv(topRatedTvRes);
 
           const hero = topRatedMoviesRes[12];
@@ -127,19 +123,22 @@ function Home({ searchTerm }) {
       <MainTabs activeTab={mainTab} onChange={setMainTab} />
 
       <div className="flex items-center justify-between bg-black/98 p-5">
-        <div className="flex space-x-5">
+        <div className="flex space-x-5 mx-6">
           <YearFilter year={year} onChange={setYear} />
           <SortFilter sortBy={sortBy} onChange={setSortBy} />
         </div>
-        <div>
+        <div className="mx-6">
           <RatingFilter rating={rating} onChange={setRating} />
         </div>
       </div>
       <MainTabContext
         mainTab={mainTab}
         movies={{ topRated: topRatedMovies }}
-        tv_shows={{ popular: popularTv, topRated: topRatedTv }}
+        tv_shows={{ topRated: topRatedTv }}
       />
+
+      <UpcomingHero />
+      <UpcomingSection />
     </>
   );
 }

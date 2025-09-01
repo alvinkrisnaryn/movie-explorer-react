@@ -23,7 +23,7 @@ function CategoryTabs({ onChange }) {
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
-            className={`relative pb-2 text-base font-semibold transition-colors duration-300 cursor-pointer ${
+            className={`relative pb-2 text-base font-semibold transition-colors duration-300 cursor-pointer tracking-wide ${
               activeTab === tab.id
                 ? "text-white"
                 : "text-gray-400 hover:text-gray-200"

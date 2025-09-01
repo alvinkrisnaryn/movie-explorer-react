@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 function RatingFilter({ rating, onChange }) {
   return (
     <div className="flex items-center space-x-2">
-      <FaStar className="text-yellow-400" />
+      <FaStar size={20} className="text-yellow-400" />
       <input
         type="range"
         min="0"
@@ -11,8 +11,9 @@ function RatingFilter({ rating, onChange }) {
         step="1"
         value={rating || 0}
         onChange={(e) => onChange(Number(e.target.value))}
+        className="w-64 accent-red-600 custom-range"
       />
-      <span className="text-yellow-400 font-bolf">{rating || 0}</span>
+      <span className="text-yellow-400 font-bold">{rating || 0}</span>
     </div>
   );
 }

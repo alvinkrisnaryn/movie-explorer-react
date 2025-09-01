@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BiSolidCertification } from "react-icons/bi";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = import.meta.env.VITE_TMDB_API_BASE_URL;
@@ -60,7 +59,7 @@ export async function getMovieCertification(id) {
   );
   if (usRelease) {
     certification =
-      usRelease.release_dates.find((r) => r.certification)?.cerfitication ||
+      usRelease.release_dates.find((r) => r.certification)?.certification ||
       null;
   }
 
@@ -100,6 +99,19 @@ export async function getMoviesByFilter({ year, sortBy, rating }) {
 
   const { data } = await api.get("/discover/movie", { params });
 
+  if (!data || !data.results) return [];
+  return data.results.map((movie) => ({
+    ...movie,
+    release_year: movie.release_date
+      ? new Date(movie.release_date).getFullYear()
+      : "unknown",
+  }));
+}
+
+export async function getUpcomingMovies({ page = 1, region = "US" } = {}) {
+  const { data } = await api.get("/movie/upcoming", {
+    params: { page, region },
+  });
   if (!data || !data.results) return [];
   return data.results.map((movie) => ({
     ...movie,

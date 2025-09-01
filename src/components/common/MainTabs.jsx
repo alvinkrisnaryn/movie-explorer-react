@@ -6,12 +6,12 @@ function MainTabs({ activeTab, onChange }) {
   ];
 
   return (
-    <div className="flex gap-10 bg-black/90 px-6 py-5 ">
+    <div className="flex bg-black/90 px-12 py-6 space-x-20">
       {tabs.map((tab) => (
         <button
           key={tab.key}
           onClick={() => onChange(tab.key)}
-          className={`relative py-3 mx-20 text-base uppercase font-semibold transition-colors duration-300 cursor-pointer ${
+          className={`relative text-base uppercase font-semibold transition-colors duration-300 cursor-pointer tracking-wide ${
             activeTab === tab.key
               ? "text-white"
               : "text-gray-400 hover:text-gray-200"
@@ -19,7 +19,7 @@ function MainTabs({ activeTab, onChange }) {
         >
           {tab.label}
           <span
-            className={`absolute left-0 -bottom-[18px] h-[3px] bg-red-600 rounded-full transition-transfrom duration-300 origin-left ${
+            className={`absolute left-0 -bottom-[25px] h-[3px] bg-red-600 rounded-full transition-transfrom duration-300 origin-left ${
               activeTab === tab.key
                 ? "w-full scale-x-100"
                 : "w-full scale-x-0 group-hover:scale-x-100"

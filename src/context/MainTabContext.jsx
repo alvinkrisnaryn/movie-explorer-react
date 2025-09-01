@@ -1,21 +1,19 @@
-import MediaList from "../components/media/MediaList";
+import GridMediaList from "../components/media/GridMediaList";
 
 function MainTabContext({ mainTab, movies, tv_shows }) {
   if (mainTab === "movies") {
     return (
-      <>
-        <MediaList items={movies.popular} />
-        <MediaList items={movies.topRated} />
-      </>
+      <div className="space-y-6">
+        <GridMediaList items={movies.topRated} limit={15}/>
+      </div>
     );
   }
 
   if (mainTab === "tv_shows") {
     return (
-      <>
-        <MediaList items={tv_shows.popular} />
-        <MediaList items={tv_shows.topRated} />
-      </>
+      <div className="space-y-6 bg-black/98">
+        <GridMediaList items={tv_shows.topRated} limit={15} />
+      </div>
     );
   }
 }
