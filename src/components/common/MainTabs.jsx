@@ -6,7 +6,7 @@ function MainTabs({ activeTab, onChange }) {
   ];
 
   return (
-    <div className="flex bg-black/90 px-12 py-6 space-x-20">
+    <div className="font-nunito flex bg-black/90 px-15 py-6 space-x-30">
       {tabs.map((tab) => (
         <button
           key={tab.key}

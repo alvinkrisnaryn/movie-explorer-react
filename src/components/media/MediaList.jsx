@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import MediaCard from "./MediaCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-function MediaList({ title, items }) {
+function MediaList({ items }) {
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -45,11 +45,9 @@ function MediaList({ title, items }) {
   const showRight = hovering && canScrollRight;
 
   return (
-    <section className=" bg-black/98 py-4 relative">
-      <h2 className="text-xl font-bold px-6 mb-3 text-white">{title}</h2>
-
+    <section className=" bg-black/98 py-5 relative">
       <div
-        className="relative py-10"
+        className="relative py-5"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >

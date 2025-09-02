@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MoviesApi } from "../../api";
-import MediaList from "../media/MediaList";
+import GridMediaList from "../media/GridMediaList";
 
 function UpcomingSection() {
   const [upcoming, setUpcoming] = useState([]);
@@ -21,8 +21,7 @@ function UpcomingSection() {
 
   return (
     <section>
-      <h2 className="text-2xl font-bold mb-4 text-white">Upcoming Movies</h2>
-      <MediaList items={upcoming} limit={15} />
+      <GridMediaList items={upcoming} limit={10} />
     </section>
   );
 }

@@ -41,7 +41,7 @@ function HeroSection({ media, rating }) {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
 
-      <div className="relative z-10 max-w-2xl px-6 top-1/3 ml-10">
+      <div className="relative z-10 max-w-3xl px-6 top-1/3 ml-10">
         {rating && (
           <span className="inline-block mb-5 bg-amber-500 px-4 py-1 rounded-[5px] text-xs font-bold uppercase tracking-wide">
             {rating}
@@ -75,7 +75,7 @@ function HeroSection({ media, rating }) {
           {description?.length > 150 && (
             <button
               onClick={() => setShowFull(!showFull)}
-              className="mt-2 text-sm text-gray-300 hover:text-white relative z-10"
+              className="mt-1 text-sm text-gray-300 hover:text-white relative z-10"
             >
               {showFull ? "Show less" : "Show more"}
             </button>

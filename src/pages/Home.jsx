@@ -12,13 +12,14 @@ import MainTabContext from "../context/MainTabContext";
 import SortFilter from "../components/common/SortFilter";
 import RatingFilter from "../components/common/RatingFilter";
 import YearFilter from "../components/common/YearFilter";
+import UpcomingMovie from "../components/common/UpcomingHeader";
 import UpcomingHero from "../components/container/UpcomingHero";
 import UpcomingSection from "../components/container/UpcomingSection";
+import FaqSection from "../components/layout/FaqSection";
 
 function Home({ searchTerm }) {
   const [popularMovies, setPopularMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
-  // const [popularTv, setPopularTv] = useState([]);
   const [topRatedTv, setTopRatedTv] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [heroMovie, setHeroMovie] = useState(null);
@@ -49,7 +50,7 @@ function Home({ searchTerm }) {
           setTopRatedMovies(topRatedMoviesRes);
           setTopRatedTv(topRatedTvRes);
 
-          const hero = topRatedMoviesRes[12];
+          const hero = topRatedTvRes[11];
           setHeroMovie(hero);
           if (hero) {
             const certification = await MoviesApi.getMovieCertification(
@@ -122,12 +123,12 @@ function Home({ searchTerm }) {
       <MediaList items={popularMovies} />
       <MainTabs activeTab={mainTab} onChange={setMainTab} />
 
-      <div className="flex items-center justify-between bg-black/98 p-5">
-        <div className="flex space-x-5 mx-6">
+      <div className="flex items-center justify-between bg-black/98 py-8">
+        <div className="flex space-x-5 px-15">
           <YearFilter year={year} onChange={setYear} />
           <SortFilter sortBy={sortBy} onChange={setSortBy} />
         </div>
-        <div className="mx-6">
+        <div className="px-20">
           <RatingFilter rating={rating} onChange={setRating} />
         </div>
       </div>
@@ -137,8 +138,13 @@ function Home({ searchTerm }) {
         tv_shows={{ topRated: topRatedTv }}
       />
 
-      <UpcomingHero />
+      <UpcomingMovie />
+      <div className="bg-black/98">
+        <UpcomingHero />
+      </div>
       <UpcomingSection />
+
+      <FaqSection />
     </>
   );
 }

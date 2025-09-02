@@ -11,7 +11,7 @@ function RatingFilter({ rating, onChange }) {
         step="1"
         value={rating || 0}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-64 accent-red-600 custom-range"
+        className="w-60 accent-red-600 custom-range"
       />
       <span className="text-yellow-400 font-bold">{rating || 0}</span>
     </div>
