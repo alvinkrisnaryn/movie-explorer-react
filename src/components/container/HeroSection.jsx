@@ -91,7 +91,7 @@ function HeroSection({ media, rating }) {
           </button>
           <button
             onClick={handleToggleFavorite}
-            className="flex items-center gap-3 bg-gray-700/70 px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-600 transition cursor-pointer"
+            className="flex items-center gap-3 bg-gray-700 px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-800 transition cursor-pointer"
           >
             {isFavorite ? <FaCheck /> : <FaPlus />}
             {isFavorite ? "Added" : "Add to List"}

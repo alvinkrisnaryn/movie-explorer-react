@@ -39,7 +39,7 @@ function FaqSection() {
   };
 
   return (
-    <section className="bg-black text-white py-12 px-4">
+    <section className="bg-black/98 text-white py-12 px-4">
       <div className="max-w-[92%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="flex flex-col items-start">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight">

@@ -16,6 +16,8 @@ import UpcomingMovie from "../components/common/UpcomingHeader";
 import UpcomingHero from "../components/container/UpcomingHero";
 import UpcomingSection from "../components/container/UpcomingSection";
 import FaqSection from "../components/layout/FaqSection";
+import EmailSignUp from "../components/layout/EmailSignUp";
+import Footer from "../components/layout/Footer";
 
 function Home({ searchTerm }) {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -145,6 +147,8 @@ function Home({ searchTerm }) {
       <UpcomingSection />
 
       <FaqSection />
+      <EmailSignUp />
+      <Footer />
     </>
   );
 }

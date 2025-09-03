@@ -23,7 +23,7 @@ function UpcomingHero() {
         const res = await MoviesApi.getUpcomingMovies();
         // console.log("Upcoming Movies API response:", res);
         if (res && res.length > 0) {
-          const first = res[1];
+          const first = res[0];
           setMovie({
             ...first,
             backdrop: first.backdrop_path
@@ -46,7 +46,7 @@ function UpcomingHero() {
   if (!movie) return null;
 
   return (
-    <section className="font-nunito relative max-w-[90%] mx-auto h-screen py-3 text-white">
+    <section className="font-nunito relative max-w-[90%] mx-auto h-screen py-3 text-white ">
       <div
         className="w-full h-full bg-cover bg-center"
         style={{ backgroundImage: `url(${movie.backdrop})` }}
@@ -64,7 +64,7 @@ function UpcomingHero() {
             </button>
             <button
               onClick={handleToggleFavorite}
-              className="flex items-center gap-3 bg-gray-700/70 px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-600 transition cursor-pointer"
+              className="flex items-center gap-3 bg-gray-700 px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-800 transition cursor-pointer"
             >
               {isFavorite ? <FaCheck /> : <FaPlus />}
               {isFavorite ? "Added" : "Add to List"}
