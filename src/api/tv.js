@@ -45,7 +45,7 @@ export async function getTvDetail(id) {
 
 export async function getTvContentRatings(id) {
   const res = await axios.get(
-    `${BASE_URL}/tv/${id}/release_dates?api_key=${API_KEY}`
+    `${BASE_URL}/tv/${id}/content_ratings?api_key=${API_KEY}`
   );
   return res.data;
 }
@@ -87,6 +87,6 @@ export async function getTvByFilter({ year, sortBy, rating }) {
     ...tv,
     release_year: tv.first_air_date
       ? new Date(tv.first_air_date_year).getFullYear()
-      : "unkown",
+      : "unknown",
   }));
 }

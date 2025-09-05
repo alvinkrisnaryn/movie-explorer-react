@@ -24,8 +24,6 @@ function Home({ searchTerm }) {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [topRatedTv, setTopRatedTv] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [heroMovie, setHeroMovie] = useState(null);
-  const [heroRating, setHeroRating] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [setActiveTab] = useState("trending");
@@ -51,15 +49,6 @@ function Home({ searchTerm }) {
           setPopularMovies(popularMoviesRes);
           setTopRatedMovies(topRatedMoviesRes);
           setTopRatedTv(topRatedTvRes);
-
-          const hero = topRatedTvRes[11];
-          setHeroMovie(hero);
-          if (hero) {
-            const certification = await MoviesApi.getMovieCertification(
-              hero.id
-            );
-            setHeroRating(certification);
-          }
         }
       } catch (error) {
         setError(error.message);
@@ -117,7 +106,7 @@ function Home({ searchTerm }) {
 
   return (
     <>
-      <HeroSection media={heroMovie} rating={heroRating} />
+      <HeroSection medias={[...topRatedMovies, ...topRatedTv]} />
 
       <CategoryTabs onChange={(tab) => setActiveTab(tab)} />
       <GenreFilter onChange={(genre) => setActiveGenre(genre)} />

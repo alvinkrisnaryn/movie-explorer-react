@@ -38,7 +38,7 @@ function Navbar({ onSearch }) {
   };
 
   return (
-    <nav className=" font-n fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/50 to-transparent text-white">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/50 to-transparent text-white">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center">
           <img
