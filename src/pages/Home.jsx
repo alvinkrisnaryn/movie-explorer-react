@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { MoviesApi, SearchApi, TvApi } from "../api";
-import { getMoviesByFilter } from "../api/movies";
-import { getTvByFilter } from "../api/tv";
+import { getMovieCertification, getMoviesByFilter } from "../api/movies";
+import { getTvByFilter, getTvCertification } from "../api/tv";
 import MediaList from "../components/media/MediaList";
 import MediaCard from "../components/media/MediaCard";
 import HeroSection from "../components/container/HeroSection";
@@ -23,6 +23,7 @@ function Home({ searchTerm }) {
   const [popularMovies, setPopularMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [topRatedTv, setTopRatedTv] = useState([]);
+  const [certificationMap, setCertificationMap] = useState({});
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,6 +36,7 @@ function Home({ searchTerm }) {
 
   useEffect(() => {
     async function fetchData() {
+      const start = Date.now();
       try {
         if (searchTerm && searchTerm.trim() !== "") {
           const result = await SearchApi.searchMovies(searchTerm);
@@ -53,11 +55,44 @@ function Home({ searchTerm }) {
       } catch (error) {
         setError(error.message);
       } finally {
-        setLoading(false);
+        const elapsed = Date.now() - start;
+        const minTime = 3000;
+        const remaining = Math.max(minTime - elapsed, 0);
+        setTimeout(() => setLoading(false), remaining);
       }
     }
     fetchData();
   }, [searchTerm]);
+
+  useEffect(() => {
+    async function fetchCertifications() {
+      const map = {};
+
+      for (const movie of topRatedMovies) {
+        try {
+          const cert = await getMovieCertification(movie.id);
+          if (cert) map[movie.id] = cert;
+        } catch (error) {
+          console.error("Movie cert error:", error);
+        }
+      }
+
+      for (const tv of topRatedTv) {
+        try {
+          const cert = await getTvCertification(tv.id);
+          if (cert) map[tv.id] = cert;
+        } catch (error) {
+          console.error("TV cert error:", error);
+        }
+      }
+
+      setCertificationMap(map);
+    }
+
+    if (topRatedMovies.length || topRatedTv.length) {
+      fetchCertifications();
+    }
+  }, [topRatedMovies, topRatedTv]);
 
   useEffect(() => {
     async function fetchFilteredData() {
@@ -82,7 +117,19 @@ function Home({ searchTerm }) {
     }
   }, [mainTab, year, sortBy, rating]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-black/98">
+        <div className="flex flex-col items-center">
+          <img
+            src="favicon-netflix.png"
+            alt="Netflix Logo"
+            className="w-24 h-24 animate-pulse animation: scalePulse 2s infinite"
+          />
+        </div>
+      </div>
+    );
+  }
   if (error) return <p>Error: {error}</p>;
 
   if (searchTerm) {
@@ -106,7 +153,10 @@ function Home({ searchTerm }) {
 
   return (
     <>
-      <HeroSection medias={[...topRatedMovies, ...topRatedTv]} />
+      <HeroSection
+        medias={[...topRatedMovies, ...topRatedTv]}
+        ratingMap={certificationMap}
+      />
 
       <CategoryTabs onChange={(tab) => setActiveTab(tab)} />
       <GenreFilter onChange={(genre) => setActiveGenre(genre)} />

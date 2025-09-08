@@ -11,6 +11,8 @@ const api = axios.create({
   },
 });
 
+const isNonEmpty = (v) => typeof v === "string" && v.trim() !== "";
+
 export async function getPopularTvShows() {
   const { data } = await api.get("/tv/popular", { params: { page: 1 } });
   if (!data || !data.results) return [];
@@ -50,25 +52,25 @@ export async function getTvContentRatings(id) {
   return res.data;
 }
 
-export async function getTvCertification(id) {
-  const ratingData = await getTvContentRatings(id);
+export async function getTvCertification(id, opts = {}) {
+  const { preferredRegions = ["US", "ID", "GB", "AU", "CA"] } = opts;
 
-  let rating = null;
-  const usRating = ratingData.results.find((item) => item.iso_3166_1 === "US");
-  rating = usRating?.rating || null;
+  const data = await getTvContentRatings(id);
+  const rows = Array.isArray(data?.results) ? data.results : [];
 
-  if (!rating) {
-    const idRating = ratingData.results.find(
-      (item) => item.iso_3166_1 === "ID"
+  const getFrom = (code) => {
+    const hit = rows.find(
+      (r) => r?.iso_3166_1 === code && isNonEmpty(r?.rating)
     );
-    rating = idRating?.rating || null;
-  }
+    return hit?.rating?.trim() ?? null;
+  };
 
-  if (!rating && ratingData.results.length > 0) {
-    rating = ratingData.results[0].rating;
+  for (const code of preferredRegions) {
+    const rating = getFrom(code);
+    if (rating) return rating;
   }
-
-  return rating;
+  const any = rows.find((r) => isNonEmpty(r?.rating));
+  return any?.rating?.trim() ?? null;
 }
 
 export async function getTvByFilter({ year, sortBy, rating }) {
@@ -89,4 +91,28 @@ export async function getTvByFilter({ year, sortBy, rating }) {
       ? new Date(tv.first_air_date_year).getFullYear()
       : "unknown",
   }));
+}
+
+export async function getTvTrailer(id) {
+  try {
+    console.log("Fetching TV trailer for ID:", id);
+    const { data } = await api.get(`/tv/${id}/videos`);
+    console.log("Raw Response:", data);
+
+    if (!data || !data.results) {
+      console.warn("No results found");
+      return null;
+    }
+
+    const trailer =
+      data.results.find(
+        (vid) => vid.type === "Trailer" && vid.site === "YouTube"
+      ) || data.results.find((vid) => vid.site === "YouTube");
+    console.log("Picked trailer:", trailer);
+
+    return trailer ? trailer.key : null;
+  } catch (error) {
+    console.error("Error fetching TV trailer:", error);
+    return null;
+  }
 }

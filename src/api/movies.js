@@ -11,6 +11,9 @@ const api = axios.create({
   },
 });
 
+const isNonEmpty = (v) => typeof v === "string" && v.trim() !== "";
+const toDate = (s) => (s ? new Date(s) : new Date(0));
+
 export async function getPopularMovies() {
   const { data } = await api.get("/movie/popular", { params: { page: 1 } });
   if (!data || !data.results) return [];
@@ -50,41 +53,39 @@ export async function getMovieReleaseDates(id) {
   return res.data;
 }
 
-export async function getMovieCertification(id) {
-  const releaseData = await getMovieReleaseDates(id);
+export async function getMovieCertification(id, opts = {}) {
+  const {
+    preferredRegions = ["US", "ID", "GB", "AU", "CA"],
+    typePriority = [3, 2, 4, 5, 1, 6],
+  } = opts;
 
-  let certification = null;
-  const usRelease = releaseData.results.find(
-    (item) => item.iso_3166_1 === "US"
-  );
-  if (usRelease) {
-    certification =
-      usRelease.release_dates.find((r) => r.certification)?.certification ||
-      null;
+  const data = await getMovieReleaseDates(id);
+  const buckets = Array.isArray(data?.results) ? data.results : [];
+
+  const pickFromRegion = (code) => {
+    const region = buckets.find((r) => r?.iso_3166_1 === code);
+    if (!region || !Array.isArray(region.release_dates)) return null;
+
+    const candidates = region.release_dates
+      .filter((r) => isNonEmpty(r?.certification))
+      .sort((a, b) => {
+        const ap = typePriority.indexOf(a?.type ?? -1);
+        const bp = typePriority.indexOf(b?.type ?? -1);
+        if (ap !== bp) return (ap === -1 ? 999 : ap) - (bp === -1 ? 999 : bp);
+        return toDate(b?.release_date) - toDate(a?.release_date);
+      });
+    return candidates[0]?.certification?.trim() ?? null;
+  };
+
+  for (const code of preferredRegions) {
+    const cert = pickFromRegion(code);
+    if (cert) return cert;
   }
-
-  if (!certification) {
-    const idRelease = releaseData.results.find(
-      (item) => item.iso_3166_1 === "ID"
-    );
-    if (idRelease) {
-      certification =
-        idRelease.release_dates.find((r) => r.certification)?.certification ||
-        null;
-    }
+  for (const region of buckets) {
+    const cert = pickFromRegion(region?.iso_3166_1);
+    if (cert) return cert;
   }
-
-  if (!certification) {
-    for (let region of releaseData.results) {
-      const found = region.release_dates.find((r) => r.certification);
-      if (found) {
-        certification = found.certification;
-        break;
-      }
-    }
-  }
-
-  return certification;
+  return null;
 }
 
 export async function getMoviesByFilter({ year, sortBy, rating }) {
@@ -119,4 +120,28 @@ export async function getUpcomingMovies({ page = 1, region = "US" } = {}) {
       ? new Date(movie.release_date).getFullYear()
       : "unknown",
   }));
+}
+
+export async function getMovieTrailer(id) {
+  try {
+    console.log("Fetching Movie trailer for id:", id);
+    const { data } = await api.get(`/movie/${id}/videos`);
+    console.log("Raw Response:", data);
+
+    if (!data || !data.results) {
+      console.warn("No Results found");
+      return null;
+    }
+
+    const trailer =
+      data.results.find(
+        (vid) => vid.type === "Trailer" && vid.site === "YouTube"
+      ) || data.results.find((vid) => vid.site === "YouTube");
+
+    console.log("Picked trailer:", trailer);
+    return trailer ? trailer.key : null;
+  } catch (error) {
+    console.error("Error fetching movie trailer:", error);
+    return null;
+  }
 }

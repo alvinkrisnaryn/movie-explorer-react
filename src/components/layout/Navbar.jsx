@@ -4,6 +4,7 @@ import { FaSearch, FaUserCircle, FaTimes, FaBell } from "react-icons/fa";
 
 function Navbar({ onSearch }) {
   const [isSearching, setIsSearching] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);
   const debounceRef = useRef(null);
@@ -12,6 +13,12 @@ function Navbar({ onSearch }) {
     if (isSearching && inputRef.current) {
       inputRef.current.focus();
     }
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isSearching]);
 
   const handleSubmit = (e) => {
@@ -38,7 +45,13 @@ function Navbar({ onSearch }) {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/50 to-transparent text-white">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-600 ${
+        isScrolled
+          ? "bg-black text-white"
+          : "bg-gradient-to-b from-black/50 to-transparent text-white"
+      }`}
+    >
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center">
           <img

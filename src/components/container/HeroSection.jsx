@@ -1,19 +1,24 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useMemo } from "react";
 import { FaStar, FaPlay, FaPlus, FaCheck } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import useFavorites from "../../context/useFavorites";
+import { getTrailer } from "../../api/trailers";
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 
 function HeroSection({ medias, ratingMap = {} }) {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
   const [showFull, setShowFull] = useState(false);
-  const navigate = useNavigate();
 
   const validMedias = (medias || []).filter((m) => m.backdrop_path);
 
-  const sorted = [...validMedias].sort((a, b) => b.popularity - a.popularity);
-  const topMedias = sorted.slice(0, 10);
+  const topMedias = useMemo(() => {
+    const sorted = [...validMedias].sort((a, b) => b.popularity - a.popularity);
+    return sorted.slice(0, 10);
+  }, [validMedias]);
+
+  const [trailerKey, setTrailerKey] = useState(null);
+  const [isTrailerOpen, setIsTrailerOpen] = useState(null);
 
   const hero = topMedias[currentHeroIndex] || null;
 
@@ -36,14 +41,23 @@ function HeroSection({ medias, ratingMap = {} }) {
 
   const title = hero.title || hero.name;
   const description = hero.overview;
-  const ratingValue = parseFloat(hero.vote_average).toFixed(1);
-  const certification = ratingMap[hero.id] || "unknown";
+  const ratingValue = hero.vote_average
+    ? parseFloat(hero.vote_average).toFixed(1)
+    : "-";
+  const certification = ratingMap[hero.id] || "NR";
 
-  const handleWatch = () => {
-    if (hero.title) {
-      navigate(`/movie/${hero.id}`);
-    } else if (hero.name) {
-      navigate(`/tv/${hero.id}`);
+  const handleWatch = async () => {
+    try {
+      const key = await getTrailer(hero);
+      if (key) {
+        setTrailerKey(key);
+        setIsTrailerOpen(true);
+      } else {
+        alert("Trailer tidak tersedia untuk konten ini");
+      }
+    } catch (error) {
+      console.error("Error opening trailer:", error);
+      alert("Gagal memuat trailer.");
     }
   };
 
@@ -74,7 +88,7 @@ function HeroSection({ medias, ratingMap = {} }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
 
           <div className="relative z-10 max-w-3xl px-6 top-1/3 ml-10">
-            {certification && (
+            {certification !== "NR" && (
               <span className="inline-block mb-5 bg-amber-500 px-4 py-1 rounded-[5px] text-xs font-bold uppercase tracking-wide">
                 {certification}
               </span>
@@ -132,6 +146,26 @@ function HeroSection({ medias, ratingMap = {} }) {
           </div>
         </motion.section>
       </AnimatePresence>
+
+      {isTrailerOpen && (
+        <div className="fixed inset-0 bg-black/98 z-[999] flex items-center justify-center">
+          <div className="relative w-[95%] h-[80%]">
+            <iframe
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
+              title="Trailer"
+              allow="autoplay; encrypted-media"
+              className="w-full h-full rounded-lg"
+              allowFullScreen
+            />
+            <button
+              onClick={() => setIsTrailerOpen(false)}
+              className="absolute -top-10 right-0 text-white font-bold hover:cursor-pointer"
+            >
+              <AiOutlineClose size={30} />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
