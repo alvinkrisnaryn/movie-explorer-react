@@ -1,11 +1,35 @@
+import { useState, useEffect } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 function YearFilter({ year, onChange }) {
+  const [inputValue, setInputValue] = useState(year || "");
+
+  useEffect(() => {
+    setInputValue(year || "");
+  }, [year]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (inputValue) {
+        onChange(inputValue);
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [inputValue, onChange]);
+
   const handleIncrement = () => {
-    onChange(year ? Number(year) + 1 : new Date().getFullYear());
+    const newYear = (Number(inputValue) || new Date().getFullYear()) + 1;
+    setInputValue(newYear);
+    onChange(newYear);
   };
+
   const handleDecrement = () => {
-    onChange(year ? Number(year) - 1 : new Date().getFullYear());
+    const newYear = (Number(inputValue) || new Date().getFullYear()) - 1;
+    setInputValue(newYear);
+    onChange(newYear);
   };
 
   return (
@@ -13,8 +37,8 @@ function YearFilter({ year, onChange }) {
       <div className="flex items-center bg-[#333333] rounded-full py-2">
         <input
           type="text"
-          value={year || ""}
-          onChange={(e) => onChange(e.target.value || null)}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           placeholder="Year"
           className="w-20 text-center text-white border-none rounded-full focus:outline-none"
         />

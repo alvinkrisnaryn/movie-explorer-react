@@ -10,7 +10,7 @@ export async function getTrailer(media) {
     }
     return null;
   } catch (error) {
-    console.error("Error fetchinf trailer:", error);
+    console.error("Error fetching trailer:", error);
     return null;
   }
 }

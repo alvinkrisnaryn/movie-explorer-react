@@ -1,14 +1,9 @@
-import {
-  FaChevronDown,
-  FaChevronLeft,
-  FaChevronRight,
-  FaChevronUp,
-} from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-function SortFilter({ sortBy, onChange }) {
-  const currentIndex = letters.indexOf(sortBy);
+function LetterFilter({ letter, onChange }) {
+  const currentIndex = letters.indexOf(letter);
 
   const handlePrev = () => {
     const newIndex =
@@ -30,7 +25,7 @@ function SortFilter({ sortBy, onChange }) {
         <input
           type="text"
           maxLength={1}
-          value={sortBy || ""}
+          value={letter || ""}
           onChange={(e) => {
             const val = e.target.value.toUpperCase();
             if (/^[A-Z]?$/.test(val)) {
@@ -51,4 +46,4 @@ function SortFilter({ sortBy, onChange }) {
   );
 }
 
-export default SortFilter;
+export default LetterFilter;

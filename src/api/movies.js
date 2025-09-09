@@ -14,6 +14,13 @@ const api = axios.create({
 const isNonEmpty = (v) => typeof v === "string" && v.trim() !== "";
 const toDate = (s) => (s ? new Date(s) : new Date(0));
 
+export async function getTrendingMovies(timeWindow = "day") {
+  const res = await axios.get(
+    `${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}`
+  );
+  return res.data.results || [];
+}
+
 export async function getPopularMovies() {
   const { data } = await api.get("/movie/popular", { params: { page: 1 } });
   if (!data || !data.results) return [];
@@ -124,12 +131,9 @@ export async function getUpcomingMovies({ page = 1, region = "US" } = {}) {
 
 export async function getMovieTrailer(id) {
   try {
-    console.log("Fetching Movie trailer for id:", id);
     const { data } = await api.get(`/movie/${id}/videos`);
-    console.log("Raw Response:", data);
 
     if (!data || !data.results) {
-      console.warn("No Results found");
       return null;
     }
 
@@ -138,7 +142,6 @@ export async function getMovieTrailer(id) {
         (vid) => vid.type === "Trailer" && vid.site === "YouTube"
       ) || data.results.find((vid) => vid.site === "YouTube");
 
-    console.log("Picked trailer:", trailer);
     return trailer ? trailer.key : null;
   } catch (error) {
     console.error("Error fetching movie trailer:", error);

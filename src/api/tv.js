@@ -13,6 +13,13 @@ const api = axios.create({
 
 const isNonEmpty = (v) => typeof v === "string" && v.trim() !== "";
 
+export async function getTrendingTv(timeWindow = "day") {
+  const res = await axios.get(
+    `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}`
+  );
+  return res.data.results || [];
+}
+
 export async function getPopularTvShows() {
   const { data } = await api.get("/tv/popular", { params: { page: 1 } });
   if (!data || !data.results) return [];
@@ -88,19 +95,16 @@ export async function getTvByFilter({ year, sortBy, rating }) {
   return data.results.map((tv) => ({
     ...tv,
     release_year: tv.first_air_date
-      ? new Date(tv.first_air_date_year).getFullYear()
+      ? new Date(tv.first_air_date).getFullYear()
       : "unknown",
   }));
 }
 
 export async function getTvTrailer(id) {
   try {
-    console.log("Fetching TV trailer for ID:", id);
     const { data } = await api.get(`/tv/${id}/videos`);
-    console.log("Raw Response:", data);
 
     if (!data || !data.results) {
-      console.warn("No results found");
       return null;
     }
 
@@ -108,7 +112,6 @@ export async function getTvTrailer(id) {
       data.results.find(
         (vid) => vid.type === "Trailer" && vid.site === "YouTube"
       ) || data.results.find((vid) => vid.site === "YouTube");
-    console.log("Picked trailer:", trailer);
 
     return trailer ? trailer.key : null;
   } catch (error) {

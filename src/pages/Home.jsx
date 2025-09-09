@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { MoviesApi, SearchApi, TvApi } from "../api";
 import { getMovieCertification, getMoviesByFilter } from "../api/movies";
 import { getTvByFilter, getTvCertification } from "../api/tv";
-import MediaList from "../components/media/MediaList";
 import MediaCard from "../components/media/MediaCard";
 import HeroSection from "../components/container/HeroSection";
 import CategoryTabs from "../components/common/CategoryTabs";
 import GenreFilter from "../components/common/GenreFilter";
 import MainTabs from "../components/common/MainTabs";
+import TrendingSection from "../components/container/TrendingSection";
+import GenreSection from "../components/container/GenreSection";
+import RegionalSection from "../components/container/RegionalSection";
 import MainTabContext from "../context/MainTabContext";
-import SortFilter from "../components/common/SortFilter";
+import LetterFilter from "../components/common/LetterFilter";
 import RatingFilter from "../components/common/RatingFilter";
 import YearFilter from "../components/common/YearFilter";
 import UpcomingMovie from "../components/common/UpcomingHeader";
@@ -20,10 +22,14 @@ import EmailSignUp from "../components/layout/EmailSignUp";
 import Footer from "../components/layout/Footer";
 
 function Home({ searchTerm }) {
-  const [popularMovies, setPopularMovies] = useState([]);
-  const [topRatedMovies, setTopRatedMovies] = useState([]);
-  const [topRatedTv, setTopRatedTv] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [tvShows, setTvShows] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [filteredTv, setFilteredTv] = useState([]);
+  const [topRatedMovies] = useState([]);
+  const [topRatedTv] = useState([]);
   const [certificationMap, setCertificationMap] = useState({});
+  const [letter, setLetter] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,7 +37,7 @@ function Home({ searchTerm }) {
   const [setActiveGenre] = useState("Action");
   const [mainTab, setMainTab] = useState("movies");
   const [year, setYear] = useState(null);
-  const [sortBy, setSortBy] = useState(null);
+  const [sortBy] = useState(null);
   const [rating, setRating] = useState(null);
 
   useEffect(() => {
@@ -42,15 +48,15 @@ function Home({ searchTerm }) {
           const result = await SearchApi.searchMovies(searchTerm);
           setSearchResults(result);
         } else {
-          const [popularMoviesRes, topRatedMoviesRes, topRatedTvRes] =
-            await Promise.all([
-              MoviesApi.getPopularMovies(),
-              MoviesApi.getTopRatedMovies(),
-              TvApi.getTopRatedTvShows(),
-            ]);
-          setPopularMovies(popularMoviesRes);
-          setTopRatedMovies(topRatedMoviesRes);
-          setTopRatedTv(topRatedTvRes);
+          const [moviesRes, tvRes] = await Promise.all([
+            MoviesApi.getTopRatedMovies(),
+            TvApi.getTopRatedTvShows(),
+          ]);
+          setMovies(moviesRes);
+          setTvShows(tvRes);
+
+          setFilteredMovies(moviesRes);
+          setFilteredTv(tvRes);
         }
       } catch (error) {
         setError(error.message);
@@ -100,10 +106,10 @@ function Home({ searchTerm }) {
         setLoading(true);
         if (mainTab === "movies") {
           const result = await getMoviesByFilter({ year, sortBy, rating });
-          setTopRatedMovies(result);
+          setFilteredMovies(result);
         } else if (mainTab === "series") {
           const result = await getTvByFilter({ year, sortBy, rating });
-          setTopRatedTv(result);
+          setFilteredTv(result);
         }
       } catch (error) {
         setError(error.message);
@@ -119,7 +125,7 @@ function Home({ searchTerm }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-black/98">
+      <div className="flex items-center z-[9999] justify-center h-screen bg-black/98">
         <div className="flex flex-col items-center">
           <img
             src="favicon-netflix.png"
@@ -154,20 +160,23 @@ function Home({ searchTerm }) {
   return (
     <>
       <HeroSection
-        medias={[...topRatedMovies, ...topRatedTv]}
+        medias={[...movies, ...tvShows]}
         ratingMap={certificationMap}
       />
 
       <CategoryTabs onChange={(tab) => setActiveTab(tab)} />
       <GenreFilter onChange={(genre) => setActiveGenre(genre)} />
 
-      <MediaList items={popularMovies} />
+      <TrendingSection timeWindow="day" />
+      <GenreSection />
+      <RegionalSection />
+
       <MainTabs activeTab={mainTab} onChange={setMainTab} />
 
       <div className="flex items-center justify-between bg-black/98 py-8">
         <div className="flex space-x-5 px-15">
           <YearFilter year={year} onChange={setYear} />
-          <SortFilter sortBy={sortBy} onChange={setSortBy} />
+          <LetterFilter letter={letter} onChange={setLetter} />
         </div>
         <div className="px-20">
           <RatingFilter rating={rating} onChange={setRating} />
@@ -175,8 +184,8 @@ function Home({ searchTerm }) {
       </div>
       <MainTabContext
         mainTab={mainTab}
-        movies={{ topRated: topRatedMovies }}
-        tv_shows={{ topRated: topRatedTv }}
+        movies={{ topRated: filteredMovies }}
+        tv_shows={{ topRated: filteredTv }}
       />
 
       <UpcomingMovie />

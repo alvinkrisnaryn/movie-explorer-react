@@ -148,7 +148,7 @@ function HeroSection({ medias, ratingMap = {} }) {
       </AnimatePresence>
 
       {isTrailerOpen && (
-        <div className="fixed inset-0 bg-black/98 z-[999] flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/98 z-[60] flex items-center justify-center">
           <div className="relative w-[95%] h-[80%]">
             <iframe
               src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
