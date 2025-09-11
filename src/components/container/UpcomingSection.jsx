@@ -9,7 +9,13 @@ function UpcomingSection() {
     async function fetchUpcoming() {
       try {
         const res = await MoviesApi.getUpcomingMovies();
-        setUpcoming(res);
+        const today = new Date();
+
+        const upcomingFiltered = res.filter((m) => {
+          return m.release_date && new Date(m.release_date) > today;
+        });
+
+        setUpcoming(upcomingFiltered);
       } catch (err) {
         console.error("Failed to fetch upcoming movies", err);
       }

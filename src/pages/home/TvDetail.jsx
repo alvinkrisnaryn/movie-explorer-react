@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TvApi } from "../api";
+import { TvApi } from "../../api";
 
 function TvDetail() {
   const { id } = useParams();

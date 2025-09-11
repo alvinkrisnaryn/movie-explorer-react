@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
-import About from "../pages/About";
-import MovieDetail from "../pages/MovieDetail";
-import TvDetail from "../pages/TvDetail";
-import Favorites from "../pages/Favorites";
+import Home from "../pages/home/Home";
+import About from "../pages/about/About";
+import MovieDetail from "../pages/home/MovieDetail";
+import TvDetail from "../pages/home/TvDetail";
+import Favorites from "../pages/list/Favorites";
 import NotFound from "../pages/NotFound";
-import Movies from "../pages/Movies";
-import TvShows from "../pages/TvShows";
+import Movies from "../pages/movies/Movies";
+import TvShows from "../pages/tv/TvShows";
 
 function AppRouter({ searchTerm }) {
   return (

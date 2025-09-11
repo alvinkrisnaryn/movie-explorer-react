@@ -1,4 +1,4 @@
-function UpcomingMovie() {
+function UpcomingHeader() {
   return (
     <div className="font-nunito font-semibold px-15 py-8 text-white text-center bg-black/98">
       <h1 className="text-5xl font-bold tracking-wide my-2">Upcoming Releases</h1>
@@ -7,4 +7,4 @@ function UpcomingMovie() {
   );
 }
 
-export default UpcomingMovie;
+export default UpcomingHeader;

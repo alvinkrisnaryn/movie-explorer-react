@@ -74,19 +74,6 @@ function Navbar({ onSearch }) {
               <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-14 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
             </NavLink>
             <NavLink
-              to="/tv"
-              className={({ isActive }) =>
-                `group relative pb-1 ${
-                  isActive
-                    ? "text-white font-bold"
-                    : "text-gray-300 hover:text-white font-bold"
-                }`
-              }
-            >
-              Tv Shows
-              <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-22 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-            </NavLink>
-            <NavLink
               to="/movie"
               className={({ isActive }) =>
                 `group relative pb-1 ${
@@ -97,6 +84,19 @@ function Navbar({ onSearch }) {
               }
             >
               Movies
+              <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-22 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+            </NavLink>
+            <NavLink
+              to="/tv"
+              className={({ isActive }) =>
+                `group relative pb-1 ${
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-300 hover:text-white font-bold"
+                }`
+              }
+            >
+              Tv Shows
               <span className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-[3px] w-16 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
             </NavLink>
             <NavLink

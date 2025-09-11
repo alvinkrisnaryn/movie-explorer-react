@@ -1,5 +1,5 @@
-import MediaCard from "../components/media/MediaCard";
-import useFavorites from "../context/useFavorites";
+import MediaCard from "../../components/media/MediaCard";
+import useFavorites from "../../context/useFavorites";
 
 export default function Favorites() {
   const { favorites } = useFavorites();

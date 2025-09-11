@@ -1,33 +1,32 @@
 import { useEffect, useState } from "react";
-import { MoviesApi, SearchApi, TvApi } from "../api";
-import { getMovieCertification, getMoviesByFilter } from "../api/movies";
-import { getTvByFilter, getTvCertification } from "../api/tv";
-import MediaCard from "../components/media/MediaCard";
-import HeroSection from "../components/container/HeroSection";
-import CategoryTabs from "../components/common/CategoryTabs";
-import GenreFilter from "../components/common/GenreFilter";
-import MainTabs from "../components/common/MainTabs";
-import TrendingSection from "../components/container/TrendingSection";
-import GenreSection from "../components/container/GenreSection";
-import RegionalSection from "../components/container/RegionalSection";
-import MainTabContext from "../context/MainTabContext";
-import LetterFilter from "../components/common/LetterFilter";
-import RatingFilter from "../components/common/RatingFilter";
-import YearFilter from "../components/common/YearFilter";
-import UpcomingMovie from "../components/common/UpcomingHeader";
-import UpcomingHero from "../components/container/UpcomingHero";
-import UpcomingSection from "../components/container/UpcomingSection";
-import FaqSection from "../components/layout/FaqSection";
-import EmailSignUp from "../components/layout/EmailSignUp";
-import Footer from "../components/layout/Footer";
+import { MoviesApi, SearchApi, TvApi } from "../../api";
+import { getMovieCertification, getMoviesByFilter } from "../../api/movies";
+import { getTvByFilter, getTvCertification } from "../../api/tv";
+import MediaCard from "../../components/media/MediaCard";
+import HeroSection from "../../components/container/HeroSection";
+import CategoryTabs from "../../components/common/CategoryTabs";
+import GenreFilter from "../../components/common/GenreFilter";
+import MainTabs from "../../components/common/MainTabs";
+import TrendingSection from "../../components/container/TrendingSection";
+import GenreSection from "../../components/container/GenreSection";
+import RegionalSection from "../../components/container/RegionalSection";
+import MainTabContext from "../../context/MainTabContext";
+import ContentLoading from "../../components/common/ContentLoading";
+import LetterFilter from "../../components/common/LetterFilter";
+import RatingFilter from "../../components/common/RatingFilter";
+import YearFilter from "../../components/common/YearFilter";
+import UpcomingHeader from "../../components/common/UpcomingHeader";
+import UpcomingHero from "../../components/container/UpcomingHero";
+import UpcomingSection from "../../components/container/UpcomingSection";
+import FaqSection from "../../components/layout/FaqSection";
+import EmailSignUp from "../../components/layout/EmailSignUp";
+import Footer from "../../components/layout/Footer";
 
 function Home({ searchTerm }) {
   const [movies, setMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [filteredTv, setFilteredTv] = useState([]);
-  const [topRatedMovies] = useState([]);
-  const [topRatedTv] = useState([]);
   const [certificationMap, setCertificationMap] = useState({});
   const [letter, setLetter] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
@@ -74,7 +73,7 @@ function Home({ searchTerm }) {
     async function fetchCertifications() {
       const map = {};
 
-      for (const movie of topRatedMovies) {
+      for (const movie of movies) {
         try {
           const cert = await getMovieCertification(movie.id);
           if (cert) map[movie.id] = cert;
@@ -83,7 +82,7 @@ function Home({ searchTerm }) {
         }
       }
 
-      for (const tv of topRatedTv) {
+      for (const tv of tvShows) {
         try {
           const cert = await getTvCertification(tv.id);
           if (cert) map[tv.id] = cert;
@@ -95,10 +94,10 @@ function Home({ searchTerm }) {
       setCertificationMap(map);
     }
 
-    if (topRatedMovies.length || topRatedTv.length) {
+    if (movies.length || tvShows.length) {
       fetchCertifications();
     }
-  }, [topRatedMovies, topRatedTv]);
+  }, [movies, tvShows]);
 
   useEffect(() => {
     async function fetchFilteredData() {
@@ -124,17 +123,7 @@ function Home({ searchTerm }) {
   }, [mainTab, year, sortBy, rating]);
 
   if (loading) {
-    return (
-      <div className="flex items-center z-[9999] justify-center h-screen bg-black/98">
-        <div className="flex flex-col items-center">
-          <img
-            src="favicon-netflix.png"
-            alt="Netflix Logo"
-            className="w-24 h-24 animate-pulse animation: scalePulse 2s infinite"
-          />
-        </div>
-      </div>
-    );
+    return <ContentLoading />;
   }
   if (error) return <p>Error: {error}</p>;
 
@@ -188,7 +177,7 @@ function Home({ searchTerm }) {
         tv_shows={{ topRated: filteredTv }}
       />
 
-      <UpcomingMovie />
+      <UpcomingHeader />
       <div className="bg-black/98">
         <UpcomingHero />
       </div>
