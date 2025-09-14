@@ -148,3 +148,37 @@ export async function getMovieTrailer(id) {
     return null;
   }
 }
+
+export async function getMovieImages(id) {
+  try {
+    const { data } = await api.get(`/movie/${id}/images`);
+
+    return {
+      backdrops: (data.backdrops || []).map(
+        (img) => `https://image.tmdb.org/t/p/original${img.file_path}`
+      ),
+      posters: (data.posters || []).map(
+        (img) => `https://image.tmdb.org/t/p/original${img.file_path}`
+      ),
+      logos: (data.logos || []).map(
+        (img) => `https://image.tmdb.org/t/p/original${img.file_path}`
+      ),
+    };
+  } catch (error) {
+    console.error("Error fetching movie images:", error);
+    return { backdrops: [], posters: [], logos: [] };
+  }
+}
+
+export async function getDisneyMovies({ page = 1 } = {}) {
+  const { data } = await api.get("/discover/movie", {
+    params: { with_companies: 3, page },
+  });
+  if (!data || !data.results) return [];
+  return data.results.map((movie) => ({
+    ...movie,
+    release_year: movie.release_date
+      ? new Date(movie.release_date).getFullYear()
+      : "unknown",
+  }));
+}
