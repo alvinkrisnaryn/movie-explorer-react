@@ -119,3 +119,67 @@ export async function getTvTrailer(id) {
     return null;
   }
 }
+
+export async function getAnimeSeris({ page = 1 } = {}) {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/tv`, {
+      params: {
+        api_key: API_KEY,
+        with_genres: 16,
+        with_countries: "JP",
+        page,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching anime series:", error);
+    throw error;
+  }
+}
+
+export async function getTrendingTvByWeek({ page = 1 } = {}) {
+  try {
+    const response = await axios.get(`${BASE_URL}/trending/tv/week`, {
+      params: {
+        api_key: API_KEY,
+        page,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching trending tv by week:", error);
+    throw error;
+  }
+}
+
+export async function getKidsTvSeris({ page = 1 } = {}) {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/tv`, {
+      params: {
+        api_key: API_KEY,
+        with_genres: 10762,
+        page,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching kids tv series:", error);
+    throw error;
+  }
+}
+
+export async function getTvByNetwork(networkId, { page = 1 } = {}) {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/tv`, {
+      params: {
+        api_key: API_KEY,
+        with_network: networkId,
+        page,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching tv by network:", error);
+    throw error;
+  }
+}

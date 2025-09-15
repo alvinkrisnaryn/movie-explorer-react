@@ -158,7 +158,7 @@ function Home({ searchTerm }) {
 
       <TrendingSection timeWindow="day" />
       <GenreSection />
-      <RegionalSection />
+      <RegionalSection regions={["id", "ko", "ja"]} />
 
       <MainTabs activeTab={mainTab} onChange={setMainTab} />
 

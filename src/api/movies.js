@@ -170,15 +170,63 @@ export async function getMovieImages(id) {
   }
 }
 
-export async function getDisneyMovies({ page = 1 } = {}) {
-  const { data } = await api.get("/discover/movie", {
-    params: { with_companies: 3, page },
-  });
-  if (!data || !data.results) return [];
-  return data.results.map((movie) => ({
-    ...movie,
-    release_year: movie.release_date
-      ? new Date(movie.release_date).getFullYear()
-      : "unknown",
-  }));
+export async function getMoviesByCompany(
+  companyId,
+  { page = 1, sortBy = "popularity.desc" } = {}
+) {
+  try {
+    const { data } = await api.get("/discover/movie", {
+      params: { with_companies: companyId, page, sort_by: sortBy },
+    });
+    if (!data || !data.results) return [];
+
+    return data.results.map((movie) => ({
+      ...movie,
+      release_year: movie.release_date
+        ? new Date(movie.release_date).getFullYear()
+        : "unknown",
+    }));
+  } catch (error) {
+    console.error(`Error fetching movies for company ${companyId}:`, error);
+    return [];
+  }
+}
+
+export async function getKidsMovie({
+  page = 1,
+  sortBy = "popularity.desc",
+} = {}) {
+  try {
+    const { data } = await api.get("/discover/movie", {
+      params: {
+        with_genres: "10751,16",
+        page,
+        sort_by: sortBy,
+      },
+    });
+
+    if (!data || !data.results) return [];
+
+    return data.results.map((movie) => ({
+      ...movie,
+      release_year: movie.release_date
+        ? new Date(movie.release_date).getFullYear()
+        : "unknown",
+    }));
+  } catch (error) {
+    console.error("Error fetching kids movie:", error);
+    return [];
+  }
+}
+
+export async function getTrendingMoviesWeek() {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`
+    );
+    return res.data.results || [];
+  } catch (error) {
+    console.error("Error fetching trending movies by week:", error);
+    return [];
+  }
 }

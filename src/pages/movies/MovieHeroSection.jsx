@@ -7,10 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   getMovieTrailer,
   getMovieCertification,
-  getDisneyMovies,
+  getMoviesByCompany,
 } from "../../api/movies";
 
-function MovieHeroSection() {
+function MovieHeroSection({ companyId }) {
   const [movies, setMovies] = useState([]);
   const [current, setCurrent] = useState(0);
   const [trailerKey, setTrailerKey] = useState(null);
@@ -23,7 +23,7 @@ function MovieHeroSection() {
   useEffect(() => {
     async function fetchMovies() {
       try {
-        const data = await getDisneyMovies();
+        const data = await getMoviesByCompany(companyId);
         const limited = data.slice(0, 6);
         setMovies(limited);
 
@@ -36,7 +36,7 @@ function MovieHeroSection() {
       }
     }
     fetchMovies();
-  }, []);
+  }, [companyId]);
 
   useEffect(() => {
     if (movies.length <= 1) return;
