@@ -5,55 +5,56 @@ import useFavorites from "../../context/useFavorites";
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  getMovieTrailer,
-  getMovieCertification,
-  getMoviesByCompany,
-} from "../../api/movies";
+  getAnimeSeries,
+  getTvTrailer,
+  getTvCertification,
+  getTvDetail,
+} from "../../api/tv";
 
-function MovieHeroSection({ companyId }) {
-  const [movies, setMovies] = useState([]);
+function TvHeroSection() {
+  const [tvShows, setTvShows] = useState([]);
   const [current, setCurrent] = useState(0);
   const [trailerKey, setTrailerKey] = useState(null);
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
   const [certification, setCertification] = useState("NR");
   const [showFull, setShowFull] = useState(false);
+  const [seasonCount, setSeasonCount] = useState(null);
 
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   useEffect(() => {
-    async function fetchMovies() {
+    async function fetchTvShows() {
       try {
-        const data = await getMoviesByCompany(companyId);
-        const limited = data.slice(0, 10);
-        setMovies(limited);
+        const data = await getAnimeSeries();
+        const limited = data.results.slice(0, 10);
+        setTvShows(limited);
 
         if (limited.length > 0) {
-          const cert = await getMovieCertification(limited[0].id);
+          const cert = await getTvCertification(limited[0].id);
           setCertification(cert || "NR");
         }
       } catch (error) {
-        console.error("Error fetching populer movies:", error);
+        console.error("Error fetching trending Tv Shows:", error);
       }
     }
-    fetchMovies();
-  }, [companyId]);
+    fetchTvShows();
+  }, []);
 
   useEffect(() => {
-    if (movies.length <= 1) return;
+    if (tvShows.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % movies.length);
-      setShowFull(false);
+      setCurrent((prev) => (prev + 1) % tvShows.length);
     }, 20000);
 
     return () => clearInterval(interval);
-  }, [movies]);
+  }, [tvShows]);
 
   useEffect(() => {
     async function fetchCert() {
-      if (movies.length === 0) return;
+      if (tvShows.length === 0) return;
       try {
-        const cert = await getMovieCertification(movies[current].id);
+        const cert = await getTvCertification(tvShows[current].id);
         setCertification(cert || "NR");
       } catch (error) {
         console.error("Error fetching certification:", error);
@@ -61,11 +62,24 @@ function MovieHeroSection({ companyId }) {
       }
     }
     fetchCert();
-  }, [current, movies]);
+  }, [current, tvShows]);
 
-  if (movies.length === 0) return null;
+  useEffect(() => {
+    async function fetchSeason() {
+      if (!tvShows[current]) return;
+      try {
+        const details = await getTvDetail(tvShows[current].id);
+        setSeasonCount(details?.number_of_seasons || 0);
+      } catch (error) {
+        console.error("Error fetching season count:", error);
+      }
+    }
+    fetchSeason();
+  }, [current, tvShows]);
 
-  const hero = movies[current];
+  if (tvShows.length === 0) return null;
+
+  const hero = tvShows[current];
   const isFavorite = favorites.some((item) => item.id === hero.id);
   const ratingValue = hero.vote_average
     ? parseFloat(hero.vote_average).toFixed(1)
@@ -73,12 +87,12 @@ function MovieHeroSection({ companyId }) {
 
   const handleWatch = async () => {
     try {
-      const key = await getMovieTrailer(hero.id);
+      const key = await getTvTrailer(hero.id);
       if (key) {
         setTrailerKey(key);
         setIsTrailerOpen(true);
       } else {
-        alert("Trailer tidak tersedia.");
+        alert("Trailer tidak tersedia");
       }
     } catch (error) {
       console.error("Error fetching trailer:", error);
@@ -106,10 +120,10 @@ function MovieHeroSection({ companyId }) {
         >
           <img
             src={`https://image.tmdb.org/t/p/original${hero.backdrop_path}`}
-            alt={hero.title}
+            alt={hero.name}
             className="absolute inset-0 w-full h-[80vh] md:h-screen object-cover opacity-90"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via/black/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
 
           <div className="relative z-10 max-w-3xl px-6 top-1/3 ml-10">
             {certification !== "NR" && (
@@ -117,17 +131,20 @@ function MovieHeroSection({ companyId }) {
                 {certification}
               </span>
             )}
-            <p className="text-lg font-bold mb-4 flex gap-2 items-center">
+            <p className="text-lg font-bold mb-4 flex items-center">
               <FaStar size={20} className="text-red-600" />
-              <span>{ratingValue}</span>
-              <span className="text-white-300">•</span>
-              <span>
-                {hero.release_date?.slice(0, 4) ||
-                  hero.first_air_date?.slice(0, 4)}
-              </span>
+              <span className="ml-4">{ratingValue}</span>
+              <span className="text-white-300 mx-5">•</span>
+              <span>{hero.first_air_date?.slice(0, 4)}</span>
+              {seasonCount !== null && (
+                <>
+                  <span className="text-white mx-5">•</span>
+                  <span>{seasonCount} Seasons</span>
+                </>
+              )}
             </p>
             <h1 className="text-5xl font-bold mb-4 drop-shadow-xl tracking-wide">
-              {hero.title}
+              {hero.name}
             </h1>
             <div className="relative mb-4">
               <p
@@ -138,7 +155,7 @@ function MovieHeroSection({ companyId }) {
                 {hero.overview}
               </p>
               {!showFull && hero.overview?.length > 150 && (
-                <div className="absolute bottom-0 left-0 right-0 h-6 pointer-events-none"></div>
+                <div className="absolute bottom-0 right-0 h-6 pointer-events-none"></div>
               )}
 
               {hero.overview?.length > 150 && (
@@ -193,4 +210,4 @@ function MovieHeroSection({ companyId }) {
   );
 }
 
-export default MovieHeroSection;
+export default TvHeroSection;

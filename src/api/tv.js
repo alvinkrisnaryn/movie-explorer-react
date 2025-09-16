@@ -120,13 +120,14 @@ export async function getTvTrailer(id) {
   }
 }
 
-export async function getAnimeSeris({ page = 1 } = {}) {
+export async function getAnimeSeries({ page = 1 } = {}) {
   try {
     const response = await axios.get(`${BASE_URL}/discover/tv`, {
       params: {
         api_key: API_KEY,
         with_genres: 16,
-        with_countries: "JP",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
         page,
       },
     });
@@ -152,7 +153,7 @@ export async function getTrendingTvByWeek({ page = 1 } = {}) {
   }
 }
 
-export async function getKidsTvSeris({ page = 1 } = {}) {
+export async function getKidsTvSeries({ page = 1 } = {}) {
   try {
     const response = await axios.get(`${BASE_URL}/discover/tv`, {
       params: {
@@ -173,13 +174,14 @@ export async function getTvByNetwork(networkId, { page = 1 } = {}) {
     const response = await axios.get(`${BASE_URL}/discover/tv`, {
       params: {
         api_key: API_KEY,
-        with_network: networkId,
+        with_networks: networkId,
         page,
       },
     });
     return response.data;
   } catch (error) {
     console.error("Error fetching tv by network:", error);
-    throw error;
+    return { results: [] };
   }
 }
+

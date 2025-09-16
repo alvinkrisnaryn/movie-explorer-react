@@ -1,13 +1,29 @@
+import { useState, useEffect } from "react";
+import ContentLoading from "../../components/common/ContentLoading";
+import TvHeroSection from "./TvHeroSection";
+import TrendingTvByWeek from "./TrendingTvByWeek";
+import TvShowsByKids from "./TvShowsByKids";
+import TrendingTvByNetwork from "./TrendingTvByNetwork";
+import Footer from "../../components/layout/Footer";
+
 function TvShows() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <ContentLoading />;
+
   return (
     <>
-      <h1 className="text-4xl font-bold p-4 text-center">Tv Show</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur est
-        eligendi nesciunt sint, pariatur alias ut excepturi incidunt nisi rem
-        quaerat. Eaque autem totam quam, accusamus dolores vel quidem
-        temporibus?
-      </p>
+      <TvHeroSection />
+      <TrendingTvByWeek />
+      <TrendingTvByNetwork networkId={56} title="Series Cartoon Network" />
+      <TvShowsByKids />
+      <TrendingTvByNetwork networkId={213} title="Netflix Originals" />
+      <Footer />
     </>
   );
 }

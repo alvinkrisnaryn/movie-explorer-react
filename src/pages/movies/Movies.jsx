@@ -18,9 +18,7 @@ function Movies() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (loading) {
-    return <ContentLoading />;
-  }
+  if (loading) return <ContentLoading />;
 
   return (
     <>
