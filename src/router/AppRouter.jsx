@@ -3,7 +3,7 @@ import Home from "../pages/home/Home";
 import About from "../pages/about/About";
 import MovieDetail from "../pages/home/MovieDetail";
 import TvDetail from "../pages/home/TvDetail";
-import Favorites from "../pages/list/Favorites";
+import FavoritesPage from "../pages/favorite/FavoritesPage";
 import NotFound from "../pages/NotFound";
 import Movies from "../pages/movies/Movies";
 import TvShows from "../pages/tv/TvShows";
@@ -15,7 +15,7 @@ function AppRouter({ searchTerm }) {
       <Route path="/movie" element={<Movies />} />
       <Route path="/tv" element={<TvShows />} />
       <Route path="/about" element={<About />} />
-      <Route path="/favorites" element={<Favorites />} />
+      <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="/movie/:id" element={<MovieDetail />} />
       <Route path="/tv/:id" element={<TvDetail />} />
       <Route path="*" element={<NotFound />} />

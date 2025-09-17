@@ -122,9 +122,7 @@ function Home({ searchTerm }) {
     }
   }, [mainTab, year, sortBy, rating]);
 
-  if (loading) {
-    return <ContentLoading />;
-  }
+  if (loading) return <ContentLoading />;
   if (error) return <p>Error: {error}</p>;
 
   if (searchTerm) {
