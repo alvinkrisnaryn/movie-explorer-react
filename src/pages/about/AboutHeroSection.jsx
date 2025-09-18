@@ -8,10 +8,11 @@ function AboutHeroSection() {
         alt="About Us Background"
         className="absolute inset-0 w-full h-full object-cover opacity-90"
       />
+      <div className="absolute inset-0 bg-gray-900/30"></div>
 
-      <div className="relative flex flex-col items-center justify-center h-full text-center px-6">
+      <div className="relative flex flex-col items-start justify-center h-full px-15">
         <h1 className="text-5xl font-bold mb-4 drop-shadow-xl tracking-wide ">
-          About Us
+          Our Movies is Ours.
         </h1>
         <p className="text-base md:text-lg text-gray-200 font-semibold ">
           We are passionate about bringing people closer to the stories they
