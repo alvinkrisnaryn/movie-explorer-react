@@ -32,7 +32,7 @@ function AboutWhyJoin() {
 
   return (
     <section className="w-full bg-black text-white py-15 px-6">
-      <h2 className="text-3xl font-extrabold text-center md:text-left py-3 pl-[140px]">
+      <h2 className="text-3xl font-extrabold text-center md:text-left py-3 md:pl-[140px]">
         More Reasons to Join
       </h2>
 

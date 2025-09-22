@@ -29,7 +29,7 @@ function AboutCoreValues() {
         Guiding Principles of Netflix
       </h2>
 
-      <div className="grid md:grid-cols-3 gap-15 max-w-5xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto">
         {values.map((item, index) => (
           <div
             key={index}

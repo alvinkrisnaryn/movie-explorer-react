@@ -4,7 +4,6 @@ import TvHeroSection from "./TvHeroSection";
 import TrendingTvByWeek from "./TrendingTvByWeek";
 import TvShowsByKids from "./TvShowsByKids";
 import TrendingTvByNetwork from "./TrendingTvByNetwork";
-import Footer from "../../components/layout/Footer";
 
 function TvShows() {
   const [loading, setLoading] = useState(true);
@@ -23,7 +22,6 @@ function TvShows() {
       <TrendingTvByNetwork networkId={56} title="Series Cartoon Network" />
       <TvShowsByKids />
       <TrendingTvByNetwork networkId={213} title="Netflix Originals" />
-      <Footer />
     </>
   );
 }

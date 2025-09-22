@@ -44,7 +44,9 @@ export async function getTopRatedMovies() {
 }
 
 export async function getMovieDetail(id) {
-  const { data } = await api.get(`/movie/${id}`);
+  const { data } = await api.get(
+    `/movie/${id}?append_to_response=credits,images,videos`
+  );
   return {
     ...data,
     release_year: data.release_date

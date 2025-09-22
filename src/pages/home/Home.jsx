@@ -19,8 +19,6 @@ import UpcomingHeader from "../../components/common/UpcomingHeader";
 import UpcomingHero from "../../components/container/UpcomingHero";
 import UpcomingSection from "../../components/container/UpcomingSection";
 import FaqSection from "../../components/layout/FaqSection";
-import EmailSignUp from "../../components/layout/EmailSignUp";
-import Footer from "../../components/layout/Footer";
 
 function Home({ searchTerm }) {
   const [movies, setMovies] = useState([]);
@@ -160,7 +158,7 @@ function Home({ searchTerm }) {
 
       <MainTabs activeTab={mainTab} onChange={setMainTab} />
 
-      <div className="flex items-center justify-between bg-black/98 py-8">
+      <div className="flex items-center justify-between bg-black py-8">
         <div className="flex space-x-5 px-15">
           <YearFilter year={year} onChange={setYear} />
           <LetterFilter letter={letter} onChange={setLetter} />
@@ -176,14 +174,12 @@ function Home({ searchTerm }) {
       />
 
       <UpcomingHeader />
-      <div className="bg-black/98">
+      <div className="bg-black">
         <UpcomingHero />
       </div>
       <UpcomingSection />
 
       <FaqSection />
-      <EmailSignUp />
-      <Footer />
     </>
   );
 }

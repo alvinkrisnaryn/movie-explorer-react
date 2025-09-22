@@ -50,7 +50,7 @@ function AboutPricing() {
   ];
 
   return (
-    <section className="w-full bg-black text-white py-20 px-6">
+    <section className="w-full bg-black text-white py-10 px-6">
       <div className="text-center py-9">
         <h1 className="text-5xl font-bold max-w-6xl mx-auto tracking-wide mb-5">
           Plans designed for the way you watch unlimited entertainment, anytime,
@@ -70,7 +70,7 @@ function AboutPricing() {
             <button
               key={type}
               onClick={() => setBilling(type)}
-              className={`px-6 py-2 rounded-full text-sm font-semibold transition ${
+              className={`px-6 py-2 rounded-full text-sm font-semibold hover:cursor-pointer transition ${
                 billing === type
                   ? "bg-red-600 text-white"
                   : "text-gray-300 hover:bg-gray-700"

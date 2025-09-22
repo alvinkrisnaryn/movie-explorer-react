@@ -27,7 +27,7 @@ function UpcomingHero() {
         });
         // console.log("Upcoming Movies API response:", upcomingFiltered);
         if (upcomingFiltered.length > 0) {
-          const first = upcomingFiltered[5];
+          const first = upcomingFiltered[1];
           setMedia({
             ...first,
             backdrop: first.backdrop_path

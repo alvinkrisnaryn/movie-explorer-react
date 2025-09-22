@@ -2,9 +2,9 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 function Footer() {
   return (
-    <footer className="bg-black text-gray-400 py-10 gap-y-4 text-sm pt-20">
-      <div className="max-w-4xl mx-auto flex flex-col space-y-5">
-        <div className="flex space-x-8">
+    <footer className="bg-black text-gray-400 py-10 text-sm pt-20">
+      <div className="max-w-6xl mx-auto flex flex-col space-y-8 px-24">
+        <div className="flex justify-center md:justify-start gap-x-8">
           <a href="#">
             <FaFacebook size={28} />
           </a>
@@ -19,7 +19,7 @@ function Footer() {
           </a>
         </div>
 
-        <div className="flex flex-wrap gap-x-16 text-sm font-bold">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-6 gap-x-10 font-bold">
           <ul className="flex flex-col space-y-2">
             <li className="link-underline">Audio Description</li>
             <li className="link-underline">Investor Relations</li>
@@ -42,7 +42,9 @@ function Footer() {
           </ul>
         </div>
 
-        <p className="mt-7 text-sm">&copy; 1997-2025 NetFlix, Inc.</p>
+        <p className="text-center md:text-left text-xs">
+          &copy; 1997-2025 NetFlix, Inc.
+        </p>
       </div>
     </footer>
   );

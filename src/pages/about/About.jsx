@@ -5,7 +5,6 @@ import AboutWhyJoin from "./AboutWhyJoin";
 import AboutPricing from "./AboutPricing";
 import AboutCallToAction from "./AboutCallToAction";
 import AboutTechStack from "./AboutTechStack";
-import Footer from "../../components/layout/Footer";
 
 function About() {
   return (
@@ -15,9 +14,8 @@ function About() {
       <AboutCoreValues />
       <AboutWhyJoin />
       <AboutPricing />
-      <AboutCallToAction />
       <AboutTechStack />
-      <Footer />
+      <AboutCallToAction />
     </>
   );
 }

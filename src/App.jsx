@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Navbar from "../src/components/layout/Navbar";
 import AppRouter from "./router/AppRouter";
 
 function App() {
@@ -29,9 +28,8 @@ function App() {
 
   return (
     <div>
-      <Navbar onSearch={setSearchTerm} />
       <main>
-        <AppRouter searchTerm={searchTerm} />
+        <AppRouter searchTerm={searchTerm} onSearch={setSearchTerm} />
       </main>
     </div>
   );

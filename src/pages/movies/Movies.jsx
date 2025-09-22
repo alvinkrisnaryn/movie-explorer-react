@@ -5,7 +5,6 @@ import TrendingMovieByWeek from "./TrendingMovieByWeek";
 import RegionalSection from "../../components/container/RegionalSection";
 import MovieByCompany from "./MovieByCompany";
 import MovieByKids from "./MovieByKids";
-import Footer from "../../components/layout/Footer";
 
 function Movies() {
   const [loading, setLoading] = useState(true);
@@ -28,7 +27,6 @@ function Movies() {
       <MovieByCompany companyId={420} title="Marvel Studio" />
       <MovieByKids />
       <MovieByCompany companyId={2251} title="Sony Pictures Animation" />
-      <Footer />
     </>
   );
 }

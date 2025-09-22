@@ -43,7 +43,9 @@ export async function getTopRatedTvShows() {
 }
 
 export async function getTvDetail(id) {
-  const { data } = await api.get(`/tv/${id}`);
+  const { data } = await api.get(`/tv/${id}`, {
+    params: { append_to_response: "credits, images" },
+  });
   return {
     ...data,
     release_year: data.first_air_date
@@ -184,4 +186,3 @@ export async function getTvByNetwork(networkId, { page = 1 } = {}) {
     return { results: [] };
   }
 }
-

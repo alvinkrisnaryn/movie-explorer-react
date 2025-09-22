@@ -1,26 +1,58 @@
-import bgImage from "../../assets/netflix-office.png";
+import { useState } from "react";
+import bgImage from "../../assets/background-email-signup.png";
+import { HiOutlineMail } from "react-icons/hi";
 
 function AboutCallToAction() {
-  return (
-    <section className="relative w-full h-[60vh] flex items-center justify-center text-center bg-black">
-      <div className="absolute inset-0">
-        <img
-          src={bgImage}
-          alt="About Us Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-90"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via/black/40 to-transparent"></div>
-      </div>
+  const [email, setEmail] = useState("");
 
-      <div className="relative z-10 max-w-3xl px-6">
-        <p className="text-3xl md:text-4xl font-bold mb-4">
-          "If A Man Empties His Purse Into His Head No Man Can Take It Away"
-        </p>
-        <span className="block text-gray-300 mb-8">BENJAMIN FRANKLIN</span>
-        <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold px-8 py-3 rounded-lg transition">
-          Join Now!!
-        </button>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    sessionStorage.setItem("userEmail", email);
+
+    setEmail("");
+  };
+
+  return (
+    <section className="relative w-full min-h-[400px] md:h-[500px]">
+      <img
+        src={bgImage}
+        alt="background"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0" />
+
+      <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-16">
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-snug text-white max-w-4xl my-5 ">
+          Gain Access to unlimited movies, Tv shows, and more.
+        </h2>
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col sm:flex-row w-full max-x-xl gap-4"
+        >
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-700">
+              <HiOutlineMail size={22} />
+            </span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your Email Address"
+              className="w-full sm:w-[300px] md:w-[400px] pl-11 pr-4 py-4 rounded-sm focus:outline-none text-gray-700 bg-white font-bold placeholder:font-bold"
+            />
+          </div>
+          <button
+            onClick={handleSubmit}
+            className="bg-black cursor-pointer text-white px-5 py-4 rounded-sm font-bold tracking-wide uppercase text-sm sm:w-auto w-full"
+          >
+            Get Started
+          </button>
+        </form>
       </div>
+      <div></div>
     </section>
   );
 }
