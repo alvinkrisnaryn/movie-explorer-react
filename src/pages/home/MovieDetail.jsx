@@ -27,7 +27,7 @@ function MovieDetail() {
     <div className="flex flex-col bg-black">
       <NavbarDetail title={movie.title} />
 
-      <div className="relative w-full h-[400px] md:h-[500px]">
+      <div className="relative w-full h-[400px] md:h-[600px]">
         <img
           src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
           alt={movie.title}

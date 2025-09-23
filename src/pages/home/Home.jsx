@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { MoviesApi, SearchApi, TvApi } from "../../api";
 import { getMovieCertification, getMoviesByFilter } from "../../api/movies";
 import { getTvByFilter, getTvCertification } from "../../api/tv";
-import MediaCard from "../../components/media/MediaCard";
 import HeroSection from "../../components/container/HeroSection";
 import CategoryTabs from "../../components/common/CategoryTabs";
 import GenreFilter from "../../components/common/GenreFilter";
@@ -19,6 +18,7 @@ import UpcomingHeader from "../../components/common/UpcomingHeader";
 import UpcomingHero from "../../components/container/UpcomingHero";
 import UpcomingSection from "../../components/container/UpcomingSection";
 import FaqSection from "../../components/layout/FaqSection";
+import SearchResults from "../../components/container/SearchResults";
 
 function Home({ searchTerm }) {
   const [movies, setMovies] = useState([]);
@@ -30,8 +30,8 @@ function Home({ searchTerm }) {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [setActiveTab] = useState("trending");
-  const [setActiveGenre] = useState("Action");
+  const [activeTab, setActiveTab] = useState("trending");
+  const [activeGenre, setActiveGenre] = useState("Action");
   const [mainTab, setMainTab] = useState("movies");
   const [year, setYear] = useState(null);
   const [sortBy] = useState(null);
@@ -124,22 +124,7 @@ function Home({ searchTerm }) {
   if (error) return <p>Error: {error}</p>;
 
   if (searchTerm) {
-    return (
-      <>
-        <h1 className="text-4xl font-bold p-4 text-center">
-          Search results for "{searchTerm}"
-        </h1>
-        {searchResults.length === 0 ? (
-          <p className="text-center text-gray-500">No movies found.</p>
-        ) : (
-          <div className="grid gap-1 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-5">
-            {searchResults.map((media) => (
-              <MediaCard key={media.id} media={media} />
-            ))}
-          </div>
-        )}
-      </>
-    );
+    return <SearchResults searchTerm={searchTerm} results={searchResults} />;
   }
 
   return (
@@ -149,8 +134,14 @@ function Home({ searchTerm }) {
         ratingMap={certificationMap}
       />
 
-      <CategoryTabs onChange={(tab) => setActiveTab(tab)} />
-      <GenreFilter onChange={(genre) => setActiveGenre(genre)} />
+      <CategoryTabs
+        activeTab={activeTab}
+        onChange={(tab) => setActiveTab(tab)}
+      />
+      <GenreFilter
+        activeGenre={activeGenre}
+        onChange={(genre) => setActiveGenre(genre)}
+      />
 
       <TrendingSection timeWindow="day" />
       <GenreSection />
@@ -158,12 +149,12 @@ function Home({ searchTerm }) {
 
       <MainTabs activeTab={mainTab} onChange={setMainTab} />
 
-      <div className="flex items-center justify-between bg-black py-8">
-        <div className="flex space-x-5 px-15">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center bg-black py-6 px-4 md:px-8 gap-6">
+        <div className="flex justify-center md:justify-start space-x-4 md:space-x-6">
           <YearFilter year={year} onChange={setYear} />
           <LetterFilter letter={letter} onChange={setLetter} />
         </div>
-        <div className="px-20">
+        <div className="flex justify-center md:justify-end">
           <RatingFilter rating={rating} onChange={setRating} />
         </div>
       </div>

@@ -34,21 +34,23 @@ function YearFilter({ year, onChange }) {
 
   return (
     <div className="flex text-white font-semibold text-base">
-      <div className="flex items-center bg-[#333333] rounded-full py-2">
+      <div className="flex items-center bg-[#333333] rounded-full px-3 py-2">
         <input
-          type="text"
+          type="number"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Year"
-          className="w-20 text-center text-white border-none rounded-full focus:outline-none"
+          className="w-16 sm:w-20 md:w-24 text-center text-white border-none rounded-full focus:outline-none"
         />
 
-        <button onClick={handleIncrement} className="px-2 py-1">
-          <FaChevronUp size={20} />
-        </button>
-        <button onClick={handleDecrement} className="px-2 py-1">
-          <FaChevronDown size={20} />
-        </button>
+        <div className="flex flex-col ml-2">
+          <button onClick={handleIncrement} className="px-1">
+            <FaChevronUp size={14} />
+          </button>
+          <button onClick={handleDecrement} className="px-1">
+            <FaChevronDown size={14} />
+          </button>
+        </div>
       </div>
     </div>
   );

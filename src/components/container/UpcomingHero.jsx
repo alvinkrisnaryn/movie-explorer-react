@@ -50,25 +50,26 @@ function UpcomingHero() {
   if (!media) return null;
 
   return (
-    <section className="font-nunito relative max-w-[90%] mx-auto h-screen py-3 text-white ">
+    <section className="font-nunito relative w-[88%] mx-auto h-[400px] md:h-[600px] py-6 text-white ">
       <div
-        className="w-full h-full bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${media.backdrop})` }}
       >
-        <div className="relative z-10 max-w-xl px-10 py-30">
-          <div className="flex items-center font-bold mb-8">
-            <span>{media.release_year}</span>
-          </div>
-          <h1 className="text-4xl font-bold mb-4">{media.title}</h1>
-          <p className="font-bold mb-6 max-w-xl">{media.overview}</p>
+        <div className="relative z-10 max-w-full md:max-w-3xl px-4 md:px-6 top-1/4 md:top-1/3 text-left md:text-left">
+          <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
+            {media.title}
+          </h1>
+          <p className="text-sm md:text-base font-medium mb-6 md:mb-8 line-clamp-3 md:line-clamp-none">
+            {media.overview}
+          </p>
 
-          <div className="flex gap-8 text-base">
-            <button className="flex items-center gap-3 bg-red-600 px-8 py-2.5 rounded-full font-extrabold hover:bg-red-700 transition cursor-pointer">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm md:text-base">
+            <button className="flex items-center justify-center gap-2 bg-red-600 px-6 md:px-8 py-2.5 rounded-full font-extrabold hover:bg-red-700 transition cursor-pointer">
               <FaPlay /> Watch
             </button>
             <button
               onClick={handleToggleFavorite}
-              className="flex items-center gap-3 bg-gray-700 px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-800 transition cursor-pointer"
+              className="flex items-center justify-center gap-2 bg-gray-700 px-6 md:px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-800 transition cursor-pointer"
             >
               {isFavorite ? <FaCheck /> : <FaPlus />}
               {isFavorite ? "Added" : "Add to List"}

@@ -39,16 +39,16 @@ function FaqSection() {
   };
 
   return (
-    <section className="bg-black text-white py-12 px-4">
-      <div className="max-w-[92%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="flex flex-col items-start">
-          <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+    <section className="bg-black text-white py-10 px-4">
+      <div className="max-w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <div className="flex flex-col items-start text-left md:text-left">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
             <span className="block">Frequently</span>
             <span className="block">Asked Questions</span>
           </h2>
-          <p className="mt-3 text-lg text-white/70">
+          <p className="mt-3 text-base md:text-lg text-white/70 max-w-md mx-auto md:mx-0">
             The easiest and fastest way to pay tuition and fees to educational,
-            businesses, and government agencies worldwide
+            businesses, and government agencies worldwide.
           </p>
         </div>
         <div className="font-medium">

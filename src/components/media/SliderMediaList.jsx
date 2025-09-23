@@ -80,7 +80,9 @@ function SliderMediaList({ title, items }) {
           className="flex gap-3 overflow-x-auto scrollbar-hide px-6 scroll-smooth"
         >
           {items.map((item) => (
-            <MediaCard key={item.id} media={item} />
+            <div key={item.id} className="flex-shrink-0">
+              <MediaCard media={item} />
+            </div>
           ))}
         </div>
 

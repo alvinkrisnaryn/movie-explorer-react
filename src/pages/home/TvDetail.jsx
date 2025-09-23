@@ -26,7 +26,7 @@ function TvDetail() {
     <div className="flex flex-col bg-black">
       <NavbarDetail title={tv.name} />
 
-      <div className="relative w-full h-[400px] md:h-[500px]">
+      <div className="relative w-full h-[400px] md:h-[600px]">
         <img
           src={`https://image.tmdb.org/t/p/original${tv.backdrop_path}`}
           alt={tv.name}

@@ -44,7 +44,7 @@ function MovieHeroSection({ companyId }) {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % movies.length);
       setShowFull(false);
-    }, 20000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [movies]);
@@ -94,7 +94,7 @@ function MovieHeroSection({ companyId }) {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden text-white bg-black">
+    <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden text-white bg-black">
       <AnimatePresence>
         <motion.section
           key={hero.id}
@@ -102,22 +102,22 @@ function MovieHeroSection({ companyId }) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.9, ease: "linear" }}
-          className="font-nunito absolute inset-0 w-full h-full"
+          className="font-nunito absolute inset-0 w-full h-full "
         >
           <img
             src={`https://image.tmdb.org/t/p/original${hero.backdrop_path}`}
             alt={hero.title}
-            className="absolute inset-0 w-full h-[80vh] md:h-screen object-cover opacity-90"
+            className="absolute w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via/black/40 to-transparent"></div>
 
-          <div className="relative z-10 max-w-3xl px-6 top-1/3 ml-10">
+          <div className="relative z-10 max-w-full md:max-w-3xl px-4 md:px-6 top-1/4 md:top-1/3 text-left md:text-left">
             {certification !== "NR" && (
-              <span className="inline-block mb-5 bg-amber-500 px-4 py-1 rounded-[5px] text-xs font-bold uppercase tracking-wide">
+              <span className="inline-block mb-5 bg-amber-500 px-4 py-1 rounded-[5px] text-[10px] md:text-xs font-bold uppercase tracking-wide">
                 {certification}
               </span>
             )}
-            <p className="text-lg font-bold mb-4 flex gap-2 items-center">
+            <p className="text-sm md:text-lg font-bold mb-3 md:mb-4 flex gap-2 md:gap-4 items-start justify-start md:justify-start">
               <FaStar size={20} className="text-red-600" />
               <span>{ratingValue}</span>
               <span className="text-white-300">•</span>
@@ -126,12 +126,12 @@ function MovieHeroSection({ companyId }) {
                   hero.first_air_date?.slice(0, 4)}
               </span>
             </p>
-            <h1 className="text-5xl font-bold mb-4 drop-shadow-xl tracking-wide">
+            <h1 className="text-2xl md:text-5xl font-bold md:3 md:mb-4 drop-shadow-xl tracking-wide">
               {hero.title}
             </h1>
-            <div className="relative mb-4">
+            <div className="relative mb-3 md:mb-4">
               <p
-                className={`text-base md:text-base text-gray-200 font-bold ${
+                className={`text-sm md:text-base text-gray-200 font-medium ${
                   showFull ? "" : "line-clamp-2"
                 }`}
               >
@@ -144,23 +144,23 @@ function MovieHeroSection({ companyId }) {
               {hero.overview?.length > 150 && (
                 <button
                   onClick={() => setShowFull(!showFull)}
-                  className="mt-1 text-sm text-gray-300 hover:text-white relative z-10 hover:cursor-pointer"
+                  className="mt-1 text-sm md:text-sm text-gray-300 hover:text-white relative z-10 hover:cursor-pointer"
                 >
                   {showFull ? "Show Less" : "Show More"}
                 </button>
               )}
             </div>
 
-            <div className="mt-6 flex gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-8 text-sm md:text-base mt-4">
               <button
                 onClick={handleWatch}
-                className="flex items-center gap-3 bg-red-600 px-8 py-2.5 rounded-full font-extrabold hover:bg-red-700 transition cursor-pointer"
+                className="flex items-center justify-center md:gap-2 gap-3 bg-red-600 w-full md:w-auto px-6 md:px-8 py-2.5 rounded-full font-extrabold hover:bg-red-700 transition cursor-pointer"
               >
-                <FaPlay /> Watch
+                <FaPlay size={16} className="text=white" /> Watch
               </button>
               <button
                 onClick={handleToogleFavorite}
-                className="flex items-center gap-3 bg-gray-700 px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-800 transition cursor-pointer"
+                className="flex items-center justify-center gap-2 md:gap-3 bg-gray-700 w-full md:w-auto px-6 md:px-8 py-2.5 rounded-full font-extrabold hover:bg-gray-800 transition cursor-pointer"
               >
                 {isFavorite ? <FaCheck /> : <FaPlus />}
                 {isFavorite ? "Added" : "Add to List"}
