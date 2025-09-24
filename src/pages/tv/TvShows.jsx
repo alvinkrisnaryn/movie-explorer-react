@@ -19,8 +19,9 @@ function TvShows() {
     <>
       <TvHeroSection />
       <TrendingTvByWeek />
-      <TrendingTvByNetwork networkId={56} title="Series Cartoon Network" />
+      <TrendingTvByNetwork networkId={2739} title="Series Disney" />
       <TvShowsByKids />
+      <TrendingTvByNetwork networkId={56} title="Series Cartoon Network" />
       <TrendingTvByNetwork networkId={213} title="Netflix Originals" />
     </>
   );
