@@ -26,7 +26,7 @@ function TvDetail() {
     <div className="flex flex-col bg-black">
       <NavbarDetail title={tv.name} />
 
-      <div className="relative w-full h-[400px] md:h-[600px]">
+      <div className="relative w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[700px]">
         <img
           src={`https://image.tmdb.org/t/p/original${tv.backdrop_path}`}
           alt={tv.name}
@@ -90,7 +90,7 @@ function TvDetail() {
 
         <div>
           <h2 className="text-2xl font-bold mb-4 sm:ml-6 text-white">Cast</h2>
-          <div className="grid grid-cols-6 sm:grid-cols-3 gap-10">
+          <div className="grid grid-cols-3 sm:grid-cols-3 gap-10">
             {tv.credits?.cast?.slice(0, 6).map((actor) => (
               <div key={actor.id} className="flex flex-col items-center">
                 <img

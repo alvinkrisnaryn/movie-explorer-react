@@ -108,7 +108,7 @@ function TvHeroSection() {
   };
 
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden text-white bg-black">
+    <div className="relative w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden text-white bg-black">
       <AnimatePresence>
         <motion.section
           key={hero.id}
@@ -143,12 +143,12 @@ function TvHeroSection() {
                 </>
               )}
             </p>
-            <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4 drop-shadow-xl tracking-wide">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 drop-shadow-xl tracking-wide">
               {hero.name}
             </h1>
             <div className="relative mb-3 md:mb-4">
               <p
-                className={`text-base md:text-base text-gray-200 font-medium ${
+                className={`text-sm sm:text-base md:text-lg text-gray-200 font-medium ${
                   showFull ? "" : "line-clamp-2"
                 }`}
               >
@@ -168,7 +168,7 @@ function TvHeroSection() {
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-8 text-sm md:text-base mt-4">
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-6 text-sm sm:text-base md:text-lg mt-4">
               <button
                 onClick={handleWatch}
                 className="flex items-center justify-center gap-2 md:gap-3 bg-red-600 w-full md:w-auto px-6 md:px-8 py-2.5 rounded-full font-extrabold hover:bg-red-700 transition cursor-pointer"

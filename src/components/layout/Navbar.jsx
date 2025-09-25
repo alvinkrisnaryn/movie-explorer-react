@@ -59,9 +59,9 @@ function Navbar({ onSearch }) {
           <img
             src="/logo-netflix.png"
             alt="Netflix Logo"
-            className="h-6 md:h-7"
+            className="h-6 sm:h-6 md:h-7 lg:h-8"
           />
-          <div className="hidden md:flex gap-15 mx-40 text-base">
+          <div className="hidden md:flex gap-5 md:gap-8 md:mx-10 lg:mx-25 2xl:mx-70 lg:gap-15 xl:gap-20 text-sm md:text-base lg:text-lg">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -130,7 +130,7 @@ function Navbar({ onSearch }) {
           </div>
         </div>
 
-        <div className="flex items-center relative gap-5 sm:gap-10">
+        <div className="flex items-center relative gap-7 md:gap-5 lg:gap-10 2xl:gap-15">
           {!isSearching ? (
             <FaSearch
               size={18}
@@ -145,7 +145,7 @@ function Navbar({ onSearch }) {
                 value={query}
                 onChange={handleChange}
                 placeholder="Search..."
-                className="bg-black/80 text-white placeholder-gray-400 rounded-xl focus:outline-none px-3 w-30 sm:w-50"
+                className="bg-black/80 text-white placeholder-gray-400 rounded-xl focus:outline-none px-3 sm:w-50 md:w-20 lg:w-40"
               />
               <FaTimes
                 size={18}
@@ -160,7 +160,7 @@ function Navbar({ onSearch }) {
           )}
           <FaBell
             size={18}
-            className="hidden sm:block cursor-pointer hover:text-gray-400"
+            className=" sm:block cursor-pointer hover:text-gray-400"
           />
           <FaUserCircle
             size={26}
@@ -168,7 +168,7 @@ function Navbar({ onSearch }) {
           />
 
           <button
-            className="md:hidden focus:outline-none"
+            className="md:hidden lg:hidden focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
           >
             <HiMenu

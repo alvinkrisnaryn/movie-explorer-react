@@ -9,18 +9,6 @@ vite.config.ts.timestamp-*
 .env.development
 .env.production
 
-# Yarn-specific (jika ada cache atau error ekstra)
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-.yarn/
 
 # Build artifacts tambahan
 *.cache
