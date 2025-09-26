@@ -10,11 +10,11 @@ function AboutHeroSection() {
       />
       <div className="absolute inset-0 bg-gray-900/30"></div>
 
-      <div className="relative flex flex-col items-start justify-center h-full px-15">
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-2">
+      <div className="relative flex flex-col items-start justify-center h-full pl-10 sm:px-15">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-3">
           Our Movies is Yours.
         </h1>
-        <p className="text-base sm:text-lg md:text-xl text-gray-200 font-semibold px-1">
+        <p className="text-sm sm:text-xl lg:text-2xl text-gray-200 font-semibold">
           Behind the screens, our story begins.
         </p>
       </div>
