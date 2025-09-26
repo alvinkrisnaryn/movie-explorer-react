@@ -11,7 +11,7 @@ function AboutHeroSection() {
       <div className="absolute inset-0 bg-gray-900/30"></div>
 
       <div className="relative flex flex-col items-start justify-center h-full px-15">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-2">
           Our Movies is Yours.
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-gray-200 font-semibold px-1">

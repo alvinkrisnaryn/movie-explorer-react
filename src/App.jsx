@@ -17,7 +17,7 @@ function App() {
       <div className="flex items-center z-[9999] justify-center h-screen bg-black/98">
         <div className="flex flex-col items-center">
           <img
-            src="favicon-netflix.png"
+            src="/favicon-netflix.png"
             alt="Netflix Logo"
             className="w-24 h-24 animate-pulse animation: scalePulse 2s infinite"
           />

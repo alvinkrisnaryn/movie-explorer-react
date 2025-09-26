@@ -3,8 +3,8 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 function Footer() {
   return (
     <footer className="bg-black text-gray-400 py-10 text-sm pt-20">
-      <div className="max-w-6xl mx-auto flex flex-col space-y-8 px-24">
-        <div className="flex justify-center md:justify-start gap-x-8">
+      <div className="max-w-6xl mx-auto flex flex-col space-y-8 px-16">
+        <div className="flex justify-center md:justify-start gap-x-10">
           <a href="#">
             <FaFacebook size={28} />
           </a>

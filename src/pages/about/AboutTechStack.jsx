@@ -21,8 +21,8 @@ function AboutTechStack() {
       img: "/images/icons/tailwind-css.svg",
     },
     {
-      name: "Next JS",
-      img: "/images/icons/next-js.svg",
+      name: "Jest",
+      img: "/images/icons/jest.svg",
     },
     {
       name: "Axios",
@@ -41,7 +41,7 @@ function AboutTechStack() {
       </h2>
 
       <div className="flex flex-col item-center space-y-10">
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-15 mx-auto">
+        <div className=" grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-10 mx-auto">
           {stacks.map((stack, index) => (
             <div
               key={index}

@@ -26,16 +26,16 @@ function TvDetail() {
     <div className="flex flex-col bg-black">
       <NavbarDetail title={tv.name} />
 
-      <div className="relative w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[700px]">
+      <div className="relative w-full h-[245px] sm:h-[300px] md:h-[400px] lg:h-[500px] 2xl:h-[700px]">
         <img
           src={`https://image.tmdb.org/t/p/original${tv.backdrop_path}`}
           alt={tv.name}
-          className="w-full h-full object-cover"
+          className="w-full h-auto max-h-[300px] md:max-h-[400px] lg:max-h-[500px] 2xl:max-h-[700px] object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="max-w-8xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div>
           <h2 className="text-2xl font-bold mb-4 text-white">Description</h2>
           <p className="text-gray-300 leading-relaxed mb-6">{tv.overview}</p>
@@ -89,8 +89,8 @@ function TvDetail() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold mb-4 sm:ml-6 text-white">Cast</h2>
-          <div className="grid grid-cols-3 sm:grid-cols-3 gap-10">
+          <h2 className="text-2xl font-bold mb-4 2xl:ml-2 text-white">Cast</h2>
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-10">
             {tv.credits?.cast?.slice(0, 6).map((actor) => (
               <div key={actor.id} className="flex flex-col items-center">
                 <img

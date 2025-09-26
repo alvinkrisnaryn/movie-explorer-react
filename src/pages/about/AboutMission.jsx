@@ -45,7 +45,7 @@ function AboutMission() {
         {milestones.map((item, index) => (
           <div
             key={index}
-            className="grid md:grid-cols-[15%_35%_50%] gap-6 items-center"
+            className="grid md:grid-cols-[15%_35%_50%] gap-6 justify-center items-center"
           >
             <h3 className="text-2xl md:text-right md:order-1 text-center order-1 font-bold text-red-600 mb-2">
               {item.year}
@@ -59,7 +59,7 @@ function AboutMission() {
               />
             </div>
 
-            <div className="text-center md:text-left order-3 md:order-3">
+            <div className="text-center md:text-left order-4">
               <p className="text-white text-sm md:text-base mb-5">
                 {item.description}
               </p>
