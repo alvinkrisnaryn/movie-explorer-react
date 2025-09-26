@@ -14,7 +14,7 @@ function AboutHeroSection() {
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-2">
           Our Movies is Yours.
         </h1>
-        <p className="text-sm sm:text-lg md:text-xl text-gray-200 font-semibold px-1">
+        <p className="text-base sm:text-lg md:text-xl text-gray-200 font-semibold px-1">
           Behind the screens, our story begins.
         </p>
       </div>
